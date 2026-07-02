@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Nuxt
+web/.nuxt/
+web/.output/
+web/.data/
+web/dist/
+web/.nitro/
+web/.cache/
+
+# Sanity
+studio/dist/
+studio/.sanity/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Build artifacts
+*.tsbuildinfo

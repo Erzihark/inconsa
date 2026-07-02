@@ -1,0 +1,25 @@
+{
+  "name": "inconsa-studio",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "dependencies": {
+    "@sanity/vision": "^6.3.0",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
+    "sanity": "^6.3.0",
+    "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^5.0.0",
+    "typescript": "^5.6.0"
+  }
+}
