@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "clients": "Clients",
+    "gallery": "Gallery",
+    "leasing": "Leasing",
+    "contact": "Contact"
+  },
+  "actions": {
+    "downloadCv": "Download résumé",
+    "viewProjects": "View projects",
+    "viewAll": "View all",
+    "requestQuote": "Request a quote",
+    "send": "Send",
+    "readMore": "Read more",
+    "backToProjects": "Back to projects"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Our work history",
+    "filterAll": "All",
+    "filterInProgress": "In progress",
+    "filterCompleted": "Completed",
+    "statusInProgress": "In progress",
+    "statusCompleted": "Completed",
+    "empty": "No projects to show.",
+    "location": "Location",
+    "client": "Client"
+  },
+  "home": {
+    "heroTitle": "We build infrastructure that lasts",
+    "heroSubtitle": "A Cancún construction company specializing in civil works, urbanization and infrastructure since 2006.",
+    "featuredProjects": "Featured projects",
+    "ourServices": "Our services",
+    "ourClients": "Our clients"
+  },
+  "services": {
+    "title": "Services",
+    "groups": {
+      "infrastructure": "Infrastructure",
+      "urbanization": "Urbanization",
+      "projects": "Projects",
+      "equipment": "Equipment rental"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "success": "Thank you, your message was sent.",
+    "error": "Something went wrong. Please try again.",
+    "phone": "Phone",
+    "address": "Address"
+  },
+  "leasing": {
+    "title": "Machinery leasing",
+    "subtitle": "Construction machinery rental by the hour or per project.",
+    "byHour": "By the hour",
+    "byProject": "Per project",
+    "categories": "Categories",
+    "specs": "Specifications",
+    "available": "Available",
+    "unavailable": "Unavailable"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "quality": "Quality policy",
+    "privacy": "Privacy policy",
+    "founder": "Founder's message"
+  },
+  "meta": {
+    "homeTitle": "Construction company in Cancún — Civil works & infrastructure",
+    "homeDescription": "Grupo INCONSA: a Cancún construction company specializing in civil works, urbanization, infrastructure and machinery rental since 2006."
+  }
+}

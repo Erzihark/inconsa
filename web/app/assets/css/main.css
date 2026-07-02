@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+/*
+ * Construction-site theme (client-approved brand).
+ * Tailwind v4 turns these tokens into utilities: bg-background, text-ink,
+ * bg-accent, text-danger, font-display, font-subtitle, font-body, etc.
+ */
+@theme {
+  --color-background: #f5f5f5;
+  --color-surface: #ffffff;
+  --color-ink: #020c34; /* deep navy — primary text & dark surfaces */
+  --color-ink-700: #16204a;
+  --color-accent: #fed53f; /* yellow — primary accent */
+  --color-danger: #db2525; /* red — small accent / alerts */
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-subtitle: 'Roboto', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-ink font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-wide;
+    text-wrap: balance;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}

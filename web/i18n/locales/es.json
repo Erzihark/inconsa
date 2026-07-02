@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Nosotros",
+    "services": "Servicios",
+    "projects": "Proyectos",
+    "clients": "Clientes",
+    "gallery": "Galería",
+    "leasing": "Arrendamiento",
+    "contact": "Contacto"
+  },
+  "actions": {
+    "downloadCv": "Descargar currículum",
+    "viewProjects": "Ver proyectos",
+    "viewAll": "Ver todos",
+    "requestQuote": "Solicitar cotización",
+    "send": "Enviar",
+    "readMore": "Leer más",
+    "backToProjects": "Volver a proyectos"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Nuestra historia de trabajo",
+    "filterAll": "Todos",
+    "filterInProgress": "En progreso",
+    "filterCompleted": "Terminados",
+    "statusInProgress": "En progreso",
+    "statusCompleted": "Terminado",
+    "empty": "No hay proyectos para mostrar.",
+    "location": "Ubicación",
+    "client": "Cliente"
+  },
+  "home": {
+    "heroTitle": "Construimos infraestructura que perdura",
+    "heroSubtitle": "Constructora en Cancún especializada en obra civil, urbanización e infraestructura desde 2006.",
+    "featuredProjects": "Proyectos destacados",
+    "ourServices": "Nuestros servicios",
+    "ourClients": "Nuestros clientes"
+  },
+  "services": {
+    "title": "Servicios",
+    "groups": {
+      "infrastructure": "Infraestructura",
+      "urbanization": "Urbanización",
+      "projects": "Proyectos",
+      "equipment": "Renta de equipo"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "name": "Nombre",
+    "email": "Correo",
+    "message": "Mensaje",
+    "success": "Gracias, tu mensaje fue enviado.",
+    "error": "Ocurrió un error. Intenta de nuevo.",
+    "phone": "Teléfono",
+    "address": "Dirección"
+  },
+  "leasing": {
+    "title": "Arrendamiento de maquinaria",
+    "subtitle": "Renta de maquinaria de construcción por hora o por proyecto.",
+    "byHour": "Por hora",
+    "byProject": "Por proyecto",
+    "categories": "Categorías",
+    "specs": "Especificaciones",
+    "available": "Disponible",
+    "unavailable": "No disponible"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "quality": "Política de calidad",
+    "privacy": "Política de privacidad",
+    "founder": "Mensaje del fundador"
+  },
+  "meta": {
+    "homeTitle": "Constructora en Cancún — Obra civil e infraestructura",
+    "homeDescription": "Grupo INCONSA: constructora en Cancún especializada en obra civil, urbanización, infraestructura y renta de maquinaria desde 2006."
+  }
+}
