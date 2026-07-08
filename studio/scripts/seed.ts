@@ -143,6 +143,51 @@ const projects = [
   location: p.location,
 }))
 
+const machineCategories = [
+  {
+    slug: 'excavadoras',
+    es: 'Excavadoras',
+    en: 'Excavators',
+    dEs: 'Excavadoras hidráulicas para movimiento de tierra y excavación de precisión.',
+    dEn: 'Hydraulic excavators for earthmoving and precision digging.',
+  },
+  {
+    slug: 'retroexcavadoras',
+    es: 'Retroexcavadoras',
+    en: 'Backhoes',
+    dEs: 'Retroexcavadoras versátiles para excavación, carga y trabajos generales.',
+    dEn: 'Versatile backhoes for digging, loading and general work.',
+  },
+  {
+    slug: 'zanjadoras-de-disco',
+    es: 'Zanjadoras de disco',
+    en: 'Disk trenchers',
+    dEs: 'Zanjadoras de disco para apertura de zanjas continuas y eficientes.',
+    dEn: 'Disk trenchers for continuous, efficient trenching.',
+  },
+  {
+    slug: 'zanjadoras-de-cuchilla',
+    es: 'Zanjadoras de cuchilla',
+    en: 'Blade trenchers',
+    dEs: 'Zanjadoras de cuchilla para instalación de ductos y tuberías.',
+    dEn: 'Blade trenchers for duct and pipe installation.',
+  },
+  {
+    slug: 'equipo-mediano',
+    es: 'Equipo mediano',
+    en: 'Medium equipment',
+    dEs: 'Equipo mediano de construcción para diversas etapas de obra.',
+    dEn: 'Medium construction equipment for various project stages.',
+  },
+].map((c, i) => ({
+  _id: `machinecat-${c.slug}`,
+  _type: 'machineCategory',
+  order: i + 1,
+  name: { _type: 'localeString', es: c.es, en: c.en },
+  slug: { _type: 'slug', current: c.slug },
+  description: { _type: 'localeText', es: c.dEs, en: c.dEn },
+}))
+
 // Legacy ids from an earlier seed used dots (e.g. "project.prado-norte"). Sanity's
 // content-versions model treats the pre-dot segment as a release namespace, so those
 // docs are invisible to the public/published perspective. Delete them so only the
@@ -159,7 +204,7 @@ const legacyIds = [
 ]
 
 async function run() {
-  const docs = [siteSettings, ...services, ...projects]
+  const docs = [siteSettings, ...services, ...projects, ...machineCategories]
   const tx = docs.reduce((t, doc) => t.createOrReplace(doc as any), client.transaction())
   const res = await tx.commit()
   console.log(`Seeded ${docs.length} documents (${res.results.length} operations).`)

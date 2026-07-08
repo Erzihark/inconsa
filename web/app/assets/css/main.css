@@ -13,6 +13,12 @@
   --color-accent: #fed53f; /* yellow — primary accent */
   --color-danger: #db2525; /* red — small accent / alerts */
 
+  /* Leasing theme — intentionally distinct: dark industrial steel + machine orange */
+  --color-steel: #14171d;
+  --color-steel-2: #1e232b;
+  --color-steel-3: #2b313b;
+  --color-machine: #f2820c;
+
   --font-display: 'Bebas Neue', sans-serif;
   --font-subtitle: 'Roboto', sans-serif;
   --font-body: 'Montserrat', sans-serif;

@@ -46,6 +46,10 @@ export const GALLERY_QUERY = `*[_type == "galleryImage"] | order(coalesce(order,
 }`
 
 export const MACHINE_CATEGORIES_QUERY = `*[_type == "machineCategory"] | order(coalesce(order, 999) asc){
+  _id, name, slug, description, image, "machineCount": count(*[_type == "machine" && references(^._id)])
+}`
+
+export const MACHINE_CATEGORY_BY_SLUG_QUERY = `*[_type == "machineCategory" && slug.current == $slug][0]{
   _id, name, slug, description, image
 }`
 
