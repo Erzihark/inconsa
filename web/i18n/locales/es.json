@@ -28,14 +28,30 @@
     "statusCompleted": "Terminado",
     "empty": "No hay proyectos para mostrar.",
     "location": "Ubicación",
-    "client": "Cliente"
+    "client": "Cliente",
+    "date": "Fecha",
+    "gallery": "Galería del proyecto",
+    "aboutProject": "Sobre el proyecto"
   },
   "home": {
     "heroTitle": "Construimos infraestructura que perdura",
     "heroSubtitle": "Constructora en Cancún especializada en obra civil, urbanización e infraestructura desde 2006.",
     "featuredProjects": "Proyectos destacados",
+    "featuredProjectsEyebrow": "Nuestro trabajo",
     "ourServices": "Nuestros servicios",
-    "ourClients": "Nuestros clientes"
+    "servicesEyebrow": "Lo que hacemos",
+    "ourClients": "Nuestros clientes",
+    "clientsEyebrow": "Confían en nosotros",
+    "stats": {
+      "years": "Años de experiencia",
+      "projects": "Proyectos",
+      "completed": "Proyectos terminados",
+      "clients": "Clientes"
+    },
+    "cta": {
+      "title": "¿Tienes un proyecto en mente?",
+      "text": "Cuéntanos qué necesitas y te damos una cotización sin compromiso."
+    }
   },
   "services": {
     "title": "Servicios",
@@ -48,9 +64,13 @@
   },
   "contact": {
     "title": "Contacto",
+    "subtitle": "Cuéntanos sobre tu proyecto",
+    "formTitle": "Envíanos un mensaje",
+    "infoTitle": "Información de contacto",
     "name": "Nombre",
     "email": "Correo",
     "message": "Mensaje",
+    "sending": "Enviando...",
     "success": "Gracias, tu mensaje fue enviado.",
     "error": "Ocurrió un error. Intenta de nuevo.",
     "phone": "Teléfono",

@@ -35,3 +35,8 @@ Thumbs.db
 
 # Build artifacts
 *.tsbuildinfo
+
+# Playwright MCP screenshots / snapshots
+.playwright-mcp/
+/*.jpeg
+/*.png

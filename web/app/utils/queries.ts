@@ -15,6 +15,17 @@ export const FEATURED_PROJECTS_QUERY = `*[_type == "project" && featured == true
   _id, title, slug, status, location, coverImage
 }`
 
+// Home: featured first, then most recent — always returns up to 6.
+export const HOME_PROJECTS_QUERY = `*[_type == "project"] | order(featured desc, coalesce(order, 999) asc, date desc)[0...6]{
+  _id, title, slug, status, location, coverImage
+}`
+
+export const HOME_STATS_QUERY = `{
+  "projects": count(*[_type == "project"]),
+  "completed": count(*[_type == "project" && status == "completed"]),
+  "clients": count(*[_type == "client"])
+}`
+
 export const PROJECT_BY_SLUG_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   _id, title, slug, status, location, date, description, coverImage, images,
   "client": client->{name}, seo

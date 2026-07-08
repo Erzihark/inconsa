@@ -28,14 +28,30 @@
     "statusCompleted": "Completed",
     "empty": "No projects to show.",
     "location": "Location",
-    "client": "Client"
+    "client": "Client",
+    "date": "Date",
+    "gallery": "Project gallery",
+    "aboutProject": "About the project"
   },
   "home": {
     "heroTitle": "We build infrastructure that lasts",
     "heroSubtitle": "A Cancún construction company specializing in civil works, urbanization and infrastructure since 2006.",
     "featuredProjects": "Featured projects",
+    "featuredProjectsEyebrow": "Our work",
     "ourServices": "Our services",
-    "ourClients": "Our clients"
+    "servicesEyebrow": "What we do",
+    "ourClients": "Our clients",
+    "clientsEyebrow": "They trust us",
+    "stats": {
+      "years": "Years of experience",
+      "projects": "Projects",
+      "completed": "Completed projects",
+      "clients": "Clients"
+    },
+    "cta": {
+      "title": "Have a project in mind?",
+      "text": "Tell us what you need and we'll send you a no-obligation quote."
+    }
   },
   "services": {
     "title": "Services",
@@ -48,9 +64,13 @@
   },
   "contact": {
     "title": "Contact",
+    "subtitle": "Tell us about your project",
+    "formTitle": "Send us a message",
+    "infoTitle": "Contact information",
     "name": "Name",
     "email": "Email",
     "message": "Message",
+    "sending": "Sending...",
     "success": "Thank you, your message was sent.",
     "error": "Something went wrong. Please try again.",
     "phone": "Phone",
