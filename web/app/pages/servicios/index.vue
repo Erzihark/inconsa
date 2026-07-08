@@ -5,7 +5,7 @@ import { SERVICES_QUERY } from '~/utils/queries'
 const { t } = useI18n()
 const loc = useLocalized()
 const localePath = useLocalePath()
-const { data: services } = useSanityQuery<Service[]>(SERVICES_QUERY)
+const { data: services } = useSanityData<Service[]>('services', SERVICES_QUERY)
 
 const groupOrder = ['infrastructure', 'urbanization', 'projects', 'equipment']
 const ordered = computed(() => {

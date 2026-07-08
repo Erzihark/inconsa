@@ -3,7 +3,7 @@ import type { Project, ProjectStatus } from '~/types/content'
 import { PROJECTS_QUERY } from '~/utils/queries'
 
 const { t } = useI18n()
-const { data: projects } = useSanityQuery<Project[]>(PROJECTS_QUERY)
+const { data: projects } = useSanityData<Project[]>('projects-all', PROJECTS_QUERY)
 
 type FilterValue = 'all' | ProjectStatus
 const filter = ref<FilterValue>('all')

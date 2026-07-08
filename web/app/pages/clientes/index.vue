@@ -4,7 +4,7 @@ import { CLIENTS_QUERY } from '~/utils/queries'
 
 const { t } = useI18n()
 const loc = useLocalized()
-const { data: clients } = useSanityQuery<ClientDoc[]>(CLIENTS_QUERY)
+const { data: clients } = useSanityData<ClientDoc[]>('clients', CLIENTS_QUERY)
 
 useSeoMeta({ title: () => t('nav.clients'), description: () => t('meta.homeDescription') })
 </script>

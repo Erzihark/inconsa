@@ -7,9 +7,12 @@ const { t, locale } = useI18n()
 const loc = useLocalized()
 const localePath = useLocalePath()
 
-const { data: project } = await useSanityQuery<Project | null>(PROJECT_BY_SLUG_QUERY, {
-  slug: route.params.slug as string,
-})
+const slug = route.params.slug as string
+const { data: project } = await useSanityData<Project | null>(
+  `project-${slug}`,
+  PROJECT_BY_SLUG_QUERY,
+  { slug },
+)
 
 if (!project.value) {
   throw createError({ statusCode: 404, statusMessage: 'Project not found', fatal: true })

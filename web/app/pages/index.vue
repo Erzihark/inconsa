@@ -6,10 +6,11 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const loc = useLocalized()
 
-const { data: projects } = useSanityQuery<Project[]>(HOME_PROJECTS_QUERY)
-const { data: services } = useSanityQuery<Service[]>(SERVICES_QUERY)
-const { data: clients } = useSanityQuery<ClientDoc[]>(CLIENTS_QUERY)
-const { data: stats } = useSanityQuery<{ projects: number; completed: number; clients: number }>(
+const { data: projects } = useSanityData<Project[]>('home-projects', HOME_PROJECTS_QUERY)
+const { data: services } = useSanityData<Service[]>('home-services', SERVICES_QUERY)
+const { data: clients } = useSanityData<ClientDoc[]>('home-clients', CLIENTS_QUERY)
+const { data: stats } = useSanityData<{ projects: number; completed: number; clients: number }>(
+  'home-stats',
   HOME_STATS_QUERY,
 )
 

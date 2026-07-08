@@ -3,7 +3,7 @@ import type { GalleryImage } from '~/types/content'
 import { GALLERY_QUERY } from '~/utils/queries'
 
 const { t } = useI18n()
-const { data: gallery } = useSanityQuery<GalleryImage[]>(GALLERY_QUERY)
+const { data: gallery } = useSanityData<GalleryImage[]>('gallery', GALLERY_QUERY)
 const figures = computed(() => (gallery.value ?? []).map((g) => g.image).filter(Boolean))
 
 useSeoMeta({ title: () => t('nav.gallery'), description: () => t('meta.homeDescription') })
