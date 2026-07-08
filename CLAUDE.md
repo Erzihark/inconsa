@@ -69,9 +69,20 @@ Feature branch → push → **PR** → merge. Never commit straight to `master`.
 ## Current status
 
 - ✅ Phase 0 scaffold, ✅ Phase 1 Sanity backend, ✅ Phase 2 Nuxt core — on `master`.
-- ✅ Phase 3 construction showcase pages — on `feat/construction-site` (this branch).
-- Sanity project live + seeded; anonymous reads verified; all pages build (exit 0) and
-  render live data via the production preview server.
+- ✅ Phase 3 construction showcase — on `feat/construction-site` (pushed).
+- ✅ Phase 4 leasing (dark/industrial, distinct design) — on `feat/leasing` (stacked on
+  construction-site). Also carries a cross-cutting hydration fix (see Data fetching).
+- Sanity live + seeded (incl. 5 machine categories); all pages build (exit 0), render
+  live data, and hydrate cleanly (0 console errors).
+
+## Data fetching (IMPORTANT)
+
+Use **`useSanityData(key, query, params)`** (`app/composables/useSanityData.ts`), NOT
+`@nuxtjs/sanity`'s `useSanityQuery`. The latter renders on the server but does **not**
+put data in the Nuxt payload, so the client refetches and hydrates with `null` →
+site-wide v-if/v-else **hydration mismatches** + extra Sanity calls. `useSanityData`
+wraps `useSanity().fetch` in `useAsyncData` with an explicit key (payload-hydrated).
+Detail pages must include the slug in the key (e.g. `project-${slug}`).
 
 ## Animations & UI
 
@@ -97,13 +108,22 @@ CV download wired in header/footer from `siteSettings.cv`.
 - 2026-07-07 — Phases 0–2 built and verified (SSR ES `/` + EN `/en`, hreflang, lean
   build). Node 22.13 toolchain fix. Sanity schemas + seed authored.
 - 2026-07-08 — Sanity live (`4sxos8s4`) + seeded; fixed dotted-id public-read issue.
-  Built full Phase 3 (13 pages + animated components), verified via prod preview against
-  live data (home/projects/contact screenshots look polished). Contact API + CV download.
+  Built full Phase 3 (13 pages + animated components). Contact API + CV download.
+- 2026-07-08 (cont.) — Replaced @vueuse/motion with CSS+IO reveals (no hydration
+  mismatch). Built Phase 4 leasing (dark/orange, distinct) + seeded 5 categories.
+  Diagnosed & fixed the payload-hydration bug (useSanityData). Console clean everywhere.
+
+## Branch/PR state
+
+`master` = Phases 0–2. `feat/construction-site` (pushed) = Phase 3 + reveal refactor.
+`feat/leasing` (stacked on it) = Phase 4 + the payload-hydration fix. The token can't
+open PRs — user opens them via compare links. Simplest: merge `feat/construction-site`
+first, then `feat/leasing` (which contains everything incl. the hydration fix).
 
 ## Next steps
 
-- Add cover images to projects + client logos + gallery photos in Studio (client task).
-- Optional: resolve the hydration-mismatch warning (CSS-based reveals).
-- Phase 4 leasing (distinct design); Phase 5 SEO finalize + Vercel deploy + DNS cutover.
-- Deferred/user: open PRs for the stacked branches; deploy Studio (`npm run deploy`);
-  set NUXT_RESEND_API_KEY + verified sender for the contact form in production.
+- Client (Studio): add project cover images, client logos, gallery photos, machine
+  photos/specs, and the CV PDF — all appear automatically.
+- Phase 5: SEO finalize (per-page schema.org, dynamic sitemap incl. slugs, 301s from old
+  URLs), Vercel deploy + env, ISR + Sanity revalidate webhook, DNS cutover.
+- Production: set NUXT_RESEND_API_KEY + verified sender for the contact form.
