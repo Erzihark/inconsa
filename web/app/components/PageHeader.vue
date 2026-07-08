@@ -12,27 +12,20 @@ withDefaults(defineProps<{ title?: string; eyebrow?: string; subtitle?: string }
     <div class="relative mx-auto max-w-6xl px-4 py-16 sm:py-20">
       <p
         v-if="eyebrow"
-        v-motion
-        :initial="{ opacity: 0, y: 16 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 500 } }"
-        class="mb-3 font-subtitle text-sm font-semibold uppercase tracking-[0.25em] text-accent"
+        class="rise mb-3 font-subtitle text-sm font-semibold uppercase tracking-[0.25em] text-accent"
       >
         {{ eyebrow }}
       </p>
       <h1
-        v-motion
-        :initial="{ opacity: 0, y: 24 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 80 } }"
-        class="font-display text-5xl leading-none tracking-wide sm:text-6xl"
+        class="rise font-display text-5xl leading-none tracking-wide sm:text-6xl"
+        style="animation-delay: 80ms"
       >
         <slot>{{ title }}</slot>
       </h1>
       <p
         v-if="subtitle"
-        v-motion
-        :initial="{ opacity: 0, y: 20 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 600, delay: 160 } }"
-        class="mt-4 max-w-2xl font-subtitle text-lg text-white/70"
+        class="rise mt-4 max-w-2xl font-subtitle text-lg text-white/70"
+        style="animation-delay: 160ms"
       >
         {{ subtitle }}
       </p>

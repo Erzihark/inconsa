@@ -1,21 +1,45 @@
 <script setup lang="ts">
-// Scroll-reveal wrapper (fade + rise). Respects prefers-reduced-motion via @vueuse/motion.
-const props = withDefaults(
-  defineProps<{ delay?: number; y?: number; as?: string; duration?: number }>(),
-  { delay: 0, y: 28, as: 'div', duration: 600 },
-)
+// Scroll-reveal wrapper. The hidden→visible styling lives in CSS (gated on
+// `scripting: enabled`), so SSR and client markup match exactly (no hydration
+// mismatch) and no-JS visitors still see content. We only toggle `.in-view`.
+const props = withDefaults(defineProps<{ delay?: number; as?: string }>(), {
+  delay: 0,
+  as: 'div',
+})
+
+const el = ref<HTMLElement | null>(null)
+let io: IntersectionObserver | null = null
+
+onMounted(() => {
+  const node = el.value
+  if (!node) return
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    node.classList.add('in-view')
+    return
+  }
+  io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          node.classList.add('in-view')
+          io?.disconnect()
+        }
+      }
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+  )
+  io.observe(node)
+})
+
+onBeforeUnmount(() => io?.disconnect())
 </script>
 
 <template>
   <component
     :is="props.as"
-    v-motion
-    :initial="{ opacity: 0, y: props.y }"
-    :visible-once="{
-      opacity: 1,
-      y: 0,
-      transition: { duration: props.duration, delay: props.delay, ease: 'easeOut' },
-    }"
+    ref="el"
+    class="reveal"
+    :style="props.delay ? { transitionDelay: `${props.delay}ms` } : undefined"
   >
     <slot />
   </component>

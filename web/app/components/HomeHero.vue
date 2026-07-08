@@ -34,35 +34,23 @@ const localePath = useLocalePath()
 
     <div class="relative mx-auto w-full max-w-6xl px-4 py-24">
       <p
-        v-motion
-        :initial="{ opacity: 0, y: 20 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 500 } }"
-        class="mb-4 font-subtitle text-sm font-semibold uppercase tracking-[0.3em] text-accent"
+        class="rise mb-4 font-subtitle text-sm font-semibold uppercase tracking-[0.3em] text-accent"
       >
         Cancún, Q. Roo · Desde 2006
       </p>
       <h1
-        v-motion
-        :initial="{ opacity: 0, y: 30 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 120 } }"
-        class="max-w-4xl font-display text-6xl leading-[0.95] tracking-wide sm:text-7xl md:text-8xl"
+        class="rise max-w-4xl font-display text-6xl leading-[0.95] tracking-wide sm:text-7xl md:text-8xl"
+        style="animation-delay: 120ms"
       >
         {{ t('home.heroTitle') }}
       </h1>
       <p
-        v-motion
-        :initial="{ opacity: 0, y: 24 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 260 } }"
-        class="mt-6 max-w-2xl font-subtitle text-lg text-white/75 sm:text-xl"
+        class="rise mt-6 max-w-2xl font-subtitle text-lg text-white/75 sm:text-xl"
+        style="animation-delay: 260ms"
       >
         {{ t('home.heroSubtitle') }}
       </p>
-      <div
-        v-motion
-        :initial="{ opacity: 0, y: 20 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 700, delay: 400 } }"
-        class="mt-10 flex flex-wrap gap-4"
-      >
+      <div class="rise mt-10 flex flex-wrap gap-4" style="animation-delay: 400ms">
         <UiButton :to="localePath('/proyectos')">{{ t('actions.viewProjects') }}</UiButton>
         <UiButton :to="localePath('/contacto')" variant="outline" class="border-white text-white hover:bg-white hover:text-ink">
           {{ t('actions.requestQuote') }}

@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-01',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/i18n', '@nuxtjs/sanity', '@nuxt/fonts', '@nuxtjs/seo', '@vueuse/motion/nuxt'],
+  modules: ['@nuxtjs/i18n', '@nuxtjs/sanity', '@nuxt/fonts', '@nuxtjs/seo'],
 
   css: ['~/assets/css/main.css'],
 
