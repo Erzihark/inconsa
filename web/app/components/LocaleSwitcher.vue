@@ -11,7 +11,7 @@ const switchLocalePath = useSwitchLocalePath()
       :to="switchLocalePath(l.code)"
       :class="[
         'px-1.5 py-0.5 uppercase',
-        l.code === locale ? 'font-bold text-ink' : 'text-ink/50 hover:text-ink',
+        l.code === locale ? 'font-bold text-white' : 'text-white/50 hover:text-white',
       ]"
     >
       {{ l.code }}

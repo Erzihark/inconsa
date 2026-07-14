@@ -16,7 +16,8 @@
     "requestQuote": "Solicitar cotización",
     "send": "Enviar",
     "readMore": "Leer más",
-    "backToProjects": "Volver a proyectos"
+    "backToProjects": "Volver a proyectos",
+    "viewProject": "Ver proyecto"
   },
   "projects": {
     "title": "Proyectos",

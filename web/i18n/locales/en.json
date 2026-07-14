@@ -16,7 +16,8 @@
     "requestQuote": "Request a quote",
     "send": "Send",
     "readMore": "Read more",
-    "backToProjects": "Back to projects"
+    "backToProjects": "Back to projects",
+    "viewProject": "View project"
   },
   "projects": {
     "title": "Projects",

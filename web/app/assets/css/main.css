@@ -22,6 +22,9 @@
   --font-display: 'Bebas Neue', sans-serif;
   --font-subtitle: 'Roboto', sans-serif;
   --font-body: 'Montserrat', sans-serif;
+
+  /* Motion language: one easing to rule them all (fast start, soft landing). */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
@@ -45,8 +48,27 @@
     @apply transition-colors;
   }
 
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  /* Form fields: consistent, branded focus treatment. */
+  input,
+  textarea,
+  select {
+    @apply transition-[border-color,box-shadow] duration-200;
+  }
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 45%, transparent);
   }
 }
 
@@ -59,9 +81,44 @@
     background-size: 44px 44px;
   }
 
-  /* Continuous marquee (client logos, etc.) */
+  /* Hazard stripes (construction tape). Color via --stripe, size via --stripe-size. */
+  .bg-stripes {
+    --stripe: var(--color-accent);
+    --stripe-size: 24px;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--stripe) 0,
+      var(--stripe) calc(var(--stripe-size) / 2),
+      transparent calc(var(--stripe-size) / 2),
+      transparent var(--stripe-size)
+    );
+  }
+
+  /* Outlined display type (big ghost words, marquee strips). */
+  .text-stroke {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+
+  /* Diagonal section edges — the "beam cut" signature of the design. */
+  .cut-b {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - clamp(2rem, 5vw, 4.5rem)), 0 100%);
+  }
+  .cut-t {
+    clip-path: polygon(0 clamp(2rem, 5vw, 4.5rem), 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* Continuous marquees. */
   .animate-marquee {
     animation: marquee 32s linear infinite;
+  }
+  .animate-marquee-slow {
+    animation: marquee 60s linear infinite;
+  }
+
+  /* Slow push-in for hero imagery. */
+  .kenburns {
+    animation: kenburns 24s var(--ease-out-soft) both alternate infinite;
   }
 
   /* Portable Text / rich-text content */
@@ -100,21 +157,29 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
-    animation: none;
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
   }
 }
 
 /*
- * Scroll reveal + entrance animations.
- * Gated on `scripting: enabled` so the SSR markup is identical to the client (no
- * hydration mismatch) and no-JS / crawlers always see fully-rendered content.
+ * Entrance + scroll-reveal system.
+ * Hidden states are gated on `scripting: enabled` so SSR markup is identical to
+ * the client (no hydration mismatch) and no-JS / crawlers see full content.
+ *
+ *  .rise            — plays immediately (heroes, page headers)
+ *  .reveal          — fades up when scrolled into view (JS adds .in-view)
+ *  .reveal-left/-right/-scale — directional variants
+ *  .img-wipe        — a solid panel wipes off an image when revealed
  */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(26px);
   }
   to {
     opacity: 1;
@@ -123,32 +188,127 @@
 }
 
 @media (scripting: enabled) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-      opacity 0.6s ease,
-      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+  .rise {
+    animation: rise 0.7s var(--ease-out-soft) both;
   }
-  .reveal.in-view {
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 0;
+    filter: blur(5px);
+    transition:
+      opacity 0.65s ease,
+      filter 0.65s ease,
+      transform 0.75s var(--ease-out-soft);
+    will-change: opacity, transform, filter;
+  }
+  .reveal {
+    transform: translateY(30px);
+  }
+  .reveal-left {
+    transform: translateX(-36px);
+  }
+  .reveal-right {
+    transform: translateX(36px);
+  }
+  .reveal-scale {
+    transform: scale(0.94);
+  }
+  .reveal.in-view,
+  .reveal-left.in-view,
+  .reveal-right.in-view,
+  .reveal-scale.in-view,
+  .in-view :is(.reveal, .reveal-left, .reveal-right, .reveal-scale) {
     opacity: 1;
+    filter: blur(0);
     transform: none;
   }
-  .rise {
-    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  /* Image wipe: pseudo-panel covers the media, slides away on reveal. */
+  .img-wipe {
+    position: relative;
+    overflow: hidden;
+  }
+  .img-wipe::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--wipe-color, var(--color-ink));
+    transform: none;
+    transition: transform 0.9s var(--ease-out-soft) 0.1s;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .img-wipe.in-view::after {
+    transform: translateX(101%);
   }
 }
 
+/* Growing accent rule (section headings, page headers). */
+.grow-line {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.8s var(--ease-out-soft) 0.15s;
+}
+.in-view .grow-line,
+.grow-line.in-view {
+  transform: scaleX(1);
+}
+@media (scripting: disabled) {
+  .grow-line {
+    transform: none;
+  }
+}
+
+/* Page transitions (Nuxt). */
+.page-enter-active,
+.page-leave-active {
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal.in-view {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  .animate-marquee,
+  .animate-marquee-slow,
+  .kenburns {
+    animation: none;
   }
   .rise {
     animation: none !important;
     opacity: 1 !important;
+  }
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .img-wipe::after {
+    display: none;
+  }
+  .grow-line {
+    transform: none !important;
+    transition: none !important;
+  }
+  .page-enter-active,
+  .page-leave-active {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }

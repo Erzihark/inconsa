@@ -46,32 +46,39 @@ useSeoMeta({
 <template>
   <div v-if="project">
     <!-- Hero cover -->
-    <section class="relative overflow-hidden bg-ink text-white">
-      <AppImage
-        v-if="project.coverImage"
-        :source="project.coverImage"
-        :alt="loc(project.title) || ''"
-        loading="eager"
-        :widths="[768, 1280, 1920]"
-        sizes="100vw"
-        img-class="absolute inset-0 h-full w-full object-cover opacity-40"
-      />
+    <section class="cut-b relative overflow-hidden bg-ink text-white">
+      <div v-if="project.coverImage" class="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <AppImage
+          :source="project.coverImage"
+          :alt="loc(project.title) || ''"
+          loading="eager"
+          :widths="[768, 1280, 1920]"
+          sizes="100vw"
+          img-class="kenburns absolute inset-0 h-full w-full object-cover opacity-45"
+        />
+      </div>
       <div
-        class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30"
+        class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25"
         aria-hidden="true"
       />
-      <div class="relative mx-auto max-w-6xl px-4 pb-14 pt-20 sm:pt-28">
+      <div class="relative mx-auto max-w-6xl px-4 pb-20 pt-32 sm:pb-24 sm:pt-44">
         <NuxtLink
           :to="localePath('/proyectos')"
-          class="mb-6 inline-flex items-center gap-2 font-subtitle text-sm text-white/70 hover:text-accent"
+          class="rise mb-6 inline-flex items-center gap-2 font-subtitle text-sm text-white/70 hover:text-accent"
         >
           <span>←</span> {{ t('actions.backToProjects') }}
         </NuxtLink>
-        <div class="mb-4"><StatusBadge :status="project.status" /></div>
-        <h1 class="max-w-4xl font-display text-5xl leading-none tracking-wide sm:text-6xl">
+        <div class="rise mb-5" style="animation-delay: 60ms"><StatusBadge :status="project.status" /></div>
+        <h1
+          class="rise max-w-4xl font-display text-6xl leading-none tracking-wide sm:text-7xl"
+          style="animation-delay: 120ms"
+        >
           {{ loc(project.title) }}
         </h1>
-        <div class="mt-5 flex flex-wrap gap-x-8 gap-y-2 font-subtitle text-sm text-white/70">
+        <div
+          class="rise mt-6 flex flex-wrap gap-x-8 gap-y-2 font-subtitle text-sm text-white/70"
+          style="animation-delay: 200ms"
+        >
           <span v-if="project.location" class="inline-flex items-center gap-1.5">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>
             {{ project.location }}
@@ -79,7 +86,7 @@ useSeoMeta({
           <span v-if="clientName">{{ t('projects.client') }}: {{ clientName }}</span>
           <span v-if="formattedDate">{{ formattedDate }}</span>
         </div>
-        <span class="mt-6 block h-1 w-20 bg-accent" />
+        <Reveal variant="none"><span class="grow-line mt-7 block h-1 w-24 bg-accent" /></Reveal>
       </div>
     </section>
 
