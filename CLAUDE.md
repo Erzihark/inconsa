@@ -68,12 +68,12 @@ Feature branch → push → **PR** → merge. Never commit straight to `master`.
 
 ## Current status
 
-- ✅ Phase 0 scaffold, ✅ Phase 1 Sanity backend, ✅ Phase 2 Nuxt core — on `master`.
-- ✅ Phase 3 construction showcase — on `feat/construction-site` (pushed).
-- ✅ Phase 4 leasing (dark/industrial, distinct design) — on `feat/leasing` (stacked on
-  construction-site). Also carries a cross-cutting hydration fix (see Data fetching).
-- Sanity live + seeded (incl. 5 machine categories); all pages build (exit 0), render
-  live data, and hydrate cleanly (0 console errors).
+- ✅ Phases 0–4 all merged to `master` (PR #1).
+- ✅ Design v2 (professional polish pass) — on `feat/design-v2`: animation system v2,
+  fixed dark header, cinematic heroes, diagonal cuts, marquees, richer cards, page
+  transitions, favicon, and **placeholder photography seeded into Sanity**.
+- Sanity live + seeded (incl. 5 machine categories, 10 placeholder photos); all pages
+  build (exit 0), render live data, and hydrate cleanly (0 console errors).
 
 ## Data fetching (IMPORTANT)
 
@@ -84,17 +84,25 @@ site-wide v-if/v-else **hydration mismatches** + extra Sanity calls. `useSanityD
 wraps `useSanity().fetch` in `useAsyncData` with an explicit key (payload-hydrated).
 Detail pages must include the slug in the key (e.g. `project-${slug}`).
 
-## Animations & UI
+## Animations & UI (design v2)
 
-- `@vueuse/motion` (`v-motion`) for scroll reveals + enter animations. Helpers:
-  `Reveal.vue` (fade-up, `visible-once`), `SectionHeading.vue`, `PageHeader.vue` (navy
-  blueprint band), `HomeHero.vue`, `StatCounter.vue` (count-up on view), marquee CSS.
-- Cards: hover lift + image zoom + yellow corner accents. `ImageGallery.vue` = lightbox.
-- Empty states are styled (navy placeholder with wordmark) so the site looks intentional
-  before the client uploads images.
-- ⚠️ Known minor: a benign Vue hydration-mismatch warning in console (from the motion
-  directives applying initial styles). SSR HTML is complete/correct; no user/SEO impact.
-  Revisit by moving reveals to a CSS + IntersectionObserver approach if desired.
+- **Motion system** in `main.css`, all gated on `@media (scripting: enabled)` +
+  `prefers-reduced-motion` (no hydration mismatch, crawlers see full content):
+  `.rise` (entrance), `.reveal/-left/-right/-scale` (scroll reveals w/ blur),
+  `.img-wipe` (panel wipe off images, `--wipe-color`), `.grow-line` (scaling rule),
+  `.cut-b/.cut-t` (diagonal section edges), `.text-stroke` (outlined display type),
+  `.bg-stripes` (hazard tape, `--stripe`), `.kenburns`, `.animate-marquee(-slow)`.
+  `Reveal.vue` toggles `.in-view` via IntersectionObserver (`variant` prop).
+- **Header**: fixed, transparent over heroes → solid on scroll (`useScrolled`),
+  yellow underline nav, switches to steel/orange on `/arrendamiento*` routes.
+- Cards: overlay titles on photos, ghost index numbers, corner accents/brackets,
+  hover lifts/zooms. `ImageGallery.vue` = lightbox + hover captions. Page transitions
+  via `app.pageTransition`. Favicon `web/public/favicon.svg`.
+- **Placeholder photos** (Unsplash, free license) seeded into Sanity via
+  `studio/scripts/seed-placeholders.ts` (idempotent; only fills empty fields) so the
+  site looks finished — the client replaces them in the Studio. 10 assets named
+  `ph-*.jpg`; projects have covers+galleries, categories have images, 8 standalone
+  gallery docs (`galleryimg-ph-*`).
 
 ## Phase 3 pages (all built)
 
@@ -112,13 +120,18 @@ CV download wired in header/footer from `siteSettings.cv`.
 - 2026-07-08 (cont.) — Replaced @vueuse/motion with CSS+IO reveals (no hydration
   mismatch). Built Phase 4 leasing (dark/orange, distinct) + seeded 5 categories.
   Diagnosed & fixed the payload-hydration bug (useSanityData). Console clean everywhere.
+- 2026-07-14 — Design v2 polish pass (`feat/design-v2`): motion system v2 (directional
+  blurred reveals, image wipes, diagonal cuts, outlined-text marquees, Ken Burns),
+  fixed scroll-aware header (route-aware leasing accent), cinematic heroes, overlay
+  project cards + ghost numbering, footer wordmark band, page transitions, favicon.
+  Seeded 10 verified Unsplash placeholder photos into Sanity (projects/categories/
+  gallery) + fix script for two mismapped photos. Verified: build green, 0 console
+  errors, screenshots on all key pages.
 
 ## Branch/PR state
 
-`master` = Phases 0–2. `feat/construction-site` (pushed) = Phase 3 + reveal refactor.
-`feat/leasing` (stacked on it) = Phase 4 + the payload-hydration fix. The token can't
-open PRs — user opens them via compare links. Simplest: merge `feat/construction-site`
-first, then `feat/leasing` (which contains everything incl. the hydration fix).
+`master` = Phases 0–4 (PR #1 merged). `feat/design-v2` = design polish pass (this
+branch). The token can't open PRs — user opens them via compare links.
 
 ## Next steps
 

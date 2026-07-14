@@ -4,7 +4,6 @@ import { HOME_PROJECTS_QUERY, HOME_STATS_QUERY, SERVICES_QUERY, CLIENTS_QUERY } 
 
 const { t } = useI18n()
 const localePath = useLocalePath()
-const loc = useLocalized()
 
 const { data: projects } = useSanityData<Project[]>('home-projects', HOME_PROJECTS_QUERY)
 const { data: services } = useSanityData<Service[]>('home-services', SERVICES_QUERY)
@@ -31,6 +30,13 @@ const marqueeClients = computed(() => {
   return c.length ? [...c, ...c] : []
 })
 
+// Big outlined text strip: the four service groups as a slow marquee.
+const marqueeWords = computed(() =>
+  services.value?.length
+    ? services.value.map((s) => s.title?.es || '').filter(Boolean)
+    : ['Infraestructura', 'Urbanización', 'Proyectos', 'Renta de equipo'],
+)
+
 useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDescription') })
 </script>
 
@@ -38,23 +44,33 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
   <div>
     <HomeHero :image="heroImage" />
 
-    <!-- Stats band -->
-    <section v-if="statItems.length" class="bg-accent text-ink">
+    <!-- Stats band: diagonal seam continuing the hero cut -->
+    <section v-if="statItems.length" class="cut-t relative -mt-14 bg-accent pt-8 text-ink sm:-mt-16">
       <div
-        class="mx-auto flex max-w-6xl flex-wrap items-start justify-center gap-x-16 gap-y-8 px-4 py-12"
+        class="mx-auto flex max-w-6xl flex-wrap items-start justify-center gap-x-16 gap-y-8 px-4 pb-12 pt-10"
       >
-        <Reveal v-for="(s, i) in statItems" :key="s.label" :delay="i * 90" class="min-w-[8rem] text-center">
-          <p class="font-display text-5xl leading-none sm:text-6xl">
+        <Reveal
+          v-for="(s, i) in statItems"
+          :key="s.label"
+          :delay="i * 90"
+          class="relative min-w-[8rem] text-center"
+        >
+          <p class="font-display text-6xl leading-none sm:text-7xl">
             <StatCounter :to="s.value" :suffix="s.suffix" />
           </p>
-          <p class="mt-2 font-subtitle text-sm font-semibold uppercase tracking-wide">{{ s.label }}</p>
+          <p class="mt-2 font-subtitle text-sm font-bold uppercase tracking-wide">{{ s.label }}</p>
+          <span
+            v-if="i < statItems.length - 1"
+            class="absolute -right-8 top-2 hidden h-12 w-px rotate-12 bg-ink/20 lg:block"
+            aria-hidden="true"
+          />
         </Reveal>
       </div>
     </section>
 
     <!-- Featured projects -->
-    <section class="mx-auto max-w-6xl px-4 py-20 sm:py-24">
-      <div class="mb-10 flex items-end justify-between gap-4">
+    <section class="mx-auto max-w-6xl px-4 py-20 sm:py-28">
+      <div class="mb-12 flex items-end justify-between gap-4">
         <SectionHeading :eyebrow="t('home.featuredProjectsEyebrow')" :title="t('home.featuredProjects')" />
         <Reveal :delay="120" class="hidden shrink-0 sm:block">
           <NuxtLink
@@ -68,32 +84,46 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
       </div>
 
       <div v-if="projects?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <Reveal v-for="(p, i) in projects" :key="p._id" :delay="(i % 3) * 100">
-          <ProjectCard :project="p" />
+        <Reveal v-for="(p, i) in projects" :key="p._id" :delay="(i % 3) * 110" variant="wipe">
+          <ProjectCard :project="p" :index="i" />
         </Reveal>
       </div>
       <p v-else class="font-subtitle text-ink/50">{{ t('projects.empty') }}</p>
     </section>
 
+    <!-- Outlined marquee strip -->
+    <section class="overflow-hidden border-y border-ink/10 bg-surface py-6" aria-hidden="true">
+      <div class="flex w-max animate-marquee-slow items-center gap-10 whitespace-nowrap pr-10">
+        <template v-for="n in 2">
+          <template v-for="(w, i) in marqueeWords" :key="`${n}-${i}`">
+            <span class="text-stroke font-display text-6xl uppercase tracking-widest text-ink/60 sm:text-7xl">
+              {{ w }}
+            </span>
+            <span class="h-3 w-3 rotate-45 bg-accent" />
+          </template>
+        </template>
+      </div>
+    </section>
+
     <!-- Services -->
-    <section class="bg-white">
-      <div class="mx-auto max-w-6xl px-4 py-20 sm:py-24">
+    <section class="bg-background">
+      <div class="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         <SectionHeading
           :eyebrow="t('home.servicesEyebrow')"
           :title="t('home.ourServices')"
           align="center"
-          class="mx-auto mb-12 max-w-2xl"
+          class="mx-auto mb-14 max-w-2xl"
         />
         <div v-if="services?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <Reveal v-for="(s, i) in services" :key="s._id" :delay="(i % 4) * 90">
-            <ServiceCard :service="s" />
+            <ServiceCard :service="s" :index="i" />
           </Reveal>
         </div>
       </div>
     </section>
 
     <!-- Clients marquee -->
-    <section v-if="marqueeClients.length" class="overflow-hidden bg-background py-16">
+    <section v-if="marqueeClients.length" class="overflow-hidden bg-surface py-16 sm:py-20">
       <SectionHeading
         :eyebrow="t('home.clientsEyebrow')"
         :title="t('home.ourClients')"
@@ -101,12 +131,16 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
         class="mx-auto mb-10 max-w-2xl px-4"
       />
       <div class="relative flex w-full overflow-hidden">
+        <div
+          class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-surface to-transparent"
+          aria-hidden="true"
+        />
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-surface to-transparent"
+          aria-hidden="true"
+        />
         <div class="flex w-max animate-marquee items-center gap-14 pr-14">
-          <div
-            v-for="(c, i) in marqueeClients"
-            :key="c._id + '-' + i"
-            class="flex h-16 items-center"
-          >
+          <div v-for="(c, i) in marqueeClients" :key="c._id + '-' + i" class="flex h-16 items-center">
             <AppImage
               v-if="c.logo"
               :source="c.logo"
@@ -124,21 +158,28 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
     </section>
 
     <!-- CTA band -->
-    <section class="relative overflow-hidden bg-ink text-white">
+    <section class="cut-t relative overflow-hidden bg-ink text-white">
       <div class="pointer-events-none absolute inset-0 bg-grid text-white/[0.05]" aria-hidden="true" />
+      <span
+        class="text-stroke pointer-events-none absolute -bottom-6 left-0 hidden select-none whitespace-nowrap font-display text-[10rem] leading-none tracking-widest text-white/[0.15] lg:block"
+        aria-hidden="true"
+        >CONSTRUIMOS</span
+      >
       <div
-        class="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-16 sm:flex-row sm:items-center sm:justify-between"
+        class="relative mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-24 sm:flex-row sm:items-center sm:justify-between sm:py-28"
       >
         <div>
           <Reveal>
-            <h2 class="font-display text-4xl tracking-wide sm:text-5xl">{{ t('home.cta.title') }}</h2>
+            <h2 class="max-w-2xl font-display text-5xl tracking-wide sm:text-6xl">
+              {{ t('home.cta.title') }}
+            </h2>
           </Reveal>
           <Reveal :delay="100">
-            <p class="mt-3 max-w-xl font-subtitle text-white/70">{{ t('home.cta.text') }}</p>
+            <p class="mt-4 max-w-xl font-subtitle text-lg text-white/70">{{ t('home.cta.text') }}</p>
           </Reveal>
         </div>
-        <Reveal :delay="160" class="shrink-0">
-          <UiButton :to="localePath('/contacto')">{{ t('actions.requestQuote') }}</UiButton>
+        <Reveal :delay="160" variant="right" class="shrink-0">
+          <UiButton :to="localePath('/contacto')" arrow>{{ t('actions.requestQuote') }}</UiButton>
         </Reveal>
       </div>
     </section>

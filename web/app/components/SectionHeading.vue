@@ -7,19 +7,24 @@ withDefaults(
 
 <template>
   <div :class="align === 'center' ? 'text-center' : 'text-left'">
-    <Reveal>
+    <Reveal variant="none">
       <p
         v-if="eyebrow"
-        class="mb-2 font-subtitle text-sm font-semibold uppercase tracking-[0.2em]"
-        :class="light ? 'text-accent' : 'text-danger'"
+        class="reveal mb-3 flex items-center gap-3 font-subtitle text-sm font-semibold uppercase tracking-[0.2em]"
+        :class="[light ? 'text-accent' : 'text-danger', align === 'center' ? 'justify-center' : '']"
       >
-        <span class="mr-2 inline-block h-2 w-2 -translate-y-0.5 bg-accent" />{{ eyebrow }}
+        <span class="grow-line inline-block h-0.5 w-10 bg-accent" aria-hidden="true" />
+        {{ eyebrow }}
+        <span
+          v-if="align === 'center'"
+          class="grow-line inline-block h-0.5 w-10 bg-accent"
+          aria-hidden="true"
+        />
       </p>
-    </Reveal>
-    <Reveal :delay="80">
       <h2
-        class="font-display text-4xl leading-none tracking-wide sm:text-5xl"
+        class="reveal font-display text-4xl leading-none tracking-wide sm:text-5xl"
         :class="light ? 'text-white' : 'text-ink'"
+        style="transition-delay: 80ms"
       >
         <slot>{{ title }}</slot>
       </h2>
