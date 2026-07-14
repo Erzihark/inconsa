@@ -28,14 +28,30 @@
     "statusCompleted": "Completed",
     "empty": "No projects to show.",
     "location": "Location",
-    "client": "Client"
+    "client": "Client",
+    "date": "Date",
+    "gallery": "Project gallery",
+    "aboutProject": "About the project"
   },
   "home": {
     "heroTitle": "We build infrastructure that lasts",
     "heroSubtitle": "A Cancún construction company specializing in civil works, urbanization and infrastructure since 2006.",
     "featuredProjects": "Featured projects",
+    "featuredProjectsEyebrow": "Our work",
     "ourServices": "Our services",
-    "ourClients": "Our clients"
+    "servicesEyebrow": "What we do",
+    "ourClients": "Our clients",
+    "clientsEyebrow": "They trust us",
+    "stats": {
+      "years": "Years of experience",
+      "projects": "Projects",
+      "completed": "Completed projects",
+      "clients": "Clients"
+    },
+    "cta": {
+      "title": "Have a project in mind?",
+      "text": "Tell us what you need and we'll send you a no-obligation quote."
+    }
   },
   "services": {
     "title": "Services",
@@ -48,9 +64,13 @@
   },
   "contact": {
     "title": "Contact",
+    "subtitle": "Tell us about your project",
+    "formTitle": "Send us a message",
+    "infoTitle": "Contact information",
     "name": "Name",
     "email": "Email",
     "message": "Message",
+    "sending": "Sending...",
     "success": "Thank you, your message was sent.",
     "error": "Something went wrong. Please try again.",
     "phone": "Phone",
@@ -59,12 +79,24 @@
   "leasing": {
     "title": "Machinery leasing",
     "subtitle": "Construction machinery rental by the hour or per project.",
-    "byHour": "By the hour",
-    "byProject": "Per project",
+    "eyebrow": "Machinery for rent",
+    "intro": "We keep a broad fleet of construction machinery ready for your job site. Pick the category you need and request a quote.",
     "categories": "Categories",
+    "categoriesSubtitle": "Browse our fleet by category",
+    "howItWorks": "How we rent",
+    "byHour": "By the hour",
+    "hourDesc": "Ideal for short, specific jobs. You only pay for the hours you use.",
+    "byProject": "Per project",
+    "projectDesc": "For full jobs. Rate agreed based on the project's scope and duration.",
+    "viewMachines": "View machines",
+    "machinesIn": "Machines in",
+    "noMachines": "We'll add machines to this category soon. Contact us for current availability.",
+    "rental": "Rental options",
     "specs": "Specifications",
     "available": "Available",
-    "unavailable": "Unavailable"
+    "unavailable": "Unavailable",
+    "perHour": "/ hour",
+    "backToLeasing": "Back to leasing"
   },
   "footer": {
     "rights": "All rights reserved.",

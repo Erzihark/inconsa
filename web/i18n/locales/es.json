@@ -28,14 +28,30 @@
     "statusCompleted": "Terminado",
     "empty": "No hay proyectos para mostrar.",
     "location": "Ubicación",
-    "client": "Cliente"
+    "client": "Cliente",
+    "date": "Fecha",
+    "gallery": "Galería del proyecto",
+    "aboutProject": "Sobre el proyecto"
   },
   "home": {
     "heroTitle": "Construimos infraestructura que perdura",
     "heroSubtitle": "Constructora en Cancún especializada en obra civil, urbanización e infraestructura desde 2006.",
     "featuredProjects": "Proyectos destacados",
+    "featuredProjectsEyebrow": "Nuestro trabajo",
     "ourServices": "Nuestros servicios",
-    "ourClients": "Nuestros clientes"
+    "servicesEyebrow": "Lo que hacemos",
+    "ourClients": "Nuestros clientes",
+    "clientsEyebrow": "Confían en nosotros",
+    "stats": {
+      "years": "Años de experiencia",
+      "projects": "Proyectos",
+      "completed": "Proyectos terminados",
+      "clients": "Clientes"
+    },
+    "cta": {
+      "title": "¿Tienes un proyecto en mente?",
+      "text": "Cuéntanos qué necesitas y te damos una cotización sin compromiso."
+    }
   },
   "services": {
     "title": "Servicios",
@@ -48,9 +64,13 @@
   },
   "contact": {
     "title": "Contacto",
+    "subtitle": "Cuéntanos sobre tu proyecto",
+    "formTitle": "Envíanos un mensaje",
+    "infoTitle": "Información de contacto",
     "name": "Nombre",
     "email": "Correo",
     "message": "Mensaje",
+    "sending": "Enviando...",
     "success": "Gracias, tu mensaje fue enviado.",
     "error": "Ocurrió un error. Intenta de nuevo.",
     "phone": "Teléfono",
@@ -59,12 +79,24 @@
   "leasing": {
     "title": "Arrendamiento de maquinaria",
     "subtitle": "Renta de maquinaria de construcción por hora o por proyecto.",
-    "byHour": "Por hora",
-    "byProject": "Por proyecto",
+    "eyebrow": "Maquinaria en renta",
+    "intro": "Contamos con una amplia flota de maquinaria de construcción lista para tu obra. Elige la categoría que necesitas y solicita una cotización.",
     "categories": "Categorías",
+    "categoriesSubtitle": "Explora nuestra flota por categoría",
+    "howItWorks": "Cómo rentamos",
+    "byHour": "Por hora",
+    "hourDesc": "Ideal para trabajos puntuales y de corta duración. Pagas solo por las horas de uso.",
+    "byProject": "Por proyecto",
+    "projectDesc": "Para obras completas. Tarifa acordada según el alcance y la duración del proyecto.",
+    "viewMachines": "Ver maquinaria",
+    "machinesIn": "Maquinaria en",
+    "noMachines": "Pronto agregaremos maquinaria en esta categoría. Contáctanos para conocer la disponibilidad.",
+    "rental": "Modalidad de renta",
     "specs": "Especificaciones",
     "available": "Disponible",
-    "unavailable": "No disponible"
+    "unavailable": "No disponible",
+    "perHour": "/ hora",
+    "backToLeasing": "Volver a arrendamiento"
   },
   "footer": {
     "rights": "Todos los derechos reservados.",

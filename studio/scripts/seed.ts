@@ -55,7 +55,7 @@ const siteSettings = {
 
 const services = [
   {
-    _id: 'service.infrastructure',
+    _id: 'service-infrastructure',
     _type: 'service',
     group: 'infrastructure',
     order: 1,
@@ -67,7 +67,7 @@ const services = [
     },
   },
   {
-    _id: 'service.urbanization',
+    _id: 'service-urbanization',
     _type: 'service',
     group: 'urbanization',
     order: 2,
@@ -79,7 +79,7 @@ const services = [
     },
   },
   {
-    _id: 'service.projects',
+    _id: 'service-projects',
     _type: 'service',
     group: 'projects',
     order: 3,
@@ -91,7 +91,7 @@ const services = [
     },
   },
   {
-    _id: 'service.equipment',
+    _id: 'service-equipment',
     _type: 'service',
     group: 'equipment',
     order: 4,
@@ -106,28 +106,28 @@ const services = [
 
 const projects = [
   {
-    _id: 'project.ptar-norponiente-ii',
+    _id: 'project-ptar-norponiente-ii',
     slug: 'ptar-norponiente-ii',
     es: 'PTAR Norponiente II',
     en: 'PTAR Norponiente II',
     location: 'Cancún, Quintana Roo',
   },
   {
-    _id: 'project.ptar-paraiso',
+    _id: 'project-ptar-paraiso',
     slug: 'ptar-paraiso',
     es: 'PTAR Paraíso',
     en: 'PTAR Paraíso',
     location: 'Cancún, Quintana Roo',
   },
   {
-    _id: 'project.prado-norte',
+    _id: 'project-prado-norte',
     slug: 'prado-norte',
     es: 'Prado Norte',
     en: 'Prado Norte',
     location: 'Quintana Roo',
   },
   {
-    _id: 'project.desarrollo-sanam-tulum',
+    _id: 'project-desarrollo-sanam-tulum',
     slug: 'desarrollo-sanam-tulum',
     es: 'Desarrollo Sanam, Tulum',
     en: 'Sanam Development, Tulum',
@@ -143,11 +143,82 @@ const projects = [
   location: p.location,
 }))
 
+const machineCategories = [
+  {
+    slug: 'excavadoras',
+    es: 'Excavadoras',
+    en: 'Excavators',
+    dEs: 'Excavadoras hidráulicas para movimiento de tierra y excavación de precisión.',
+    dEn: 'Hydraulic excavators for earthmoving and precision digging.',
+  },
+  {
+    slug: 'retroexcavadoras',
+    es: 'Retroexcavadoras',
+    en: 'Backhoes',
+    dEs: 'Retroexcavadoras versátiles para excavación, carga y trabajos generales.',
+    dEn: 'Versatile backhoes for digging, loading and general work.',
+  },
+  {
+    slug: 'zanjadoras-de-disco',
+    es: 'Zanjadoras de disco',
+    en: 'Disk trenchers',
+    dEs: 'Zanjadoras de disco para apertura de zanjas continuas y eficientes.',
+    dEn: 'Disk trenchers for continuous, efficient trenching.',
+  },
+  {
+    slug: 'zanjadoras-de-cuchilla',
+    es: 'Zanjadoras de cuchilla',
+    en: 'Blade trenchers',
+    dEs: 'Zanjadoras de cuchilla para instalación de ductos y tuberías.',
+    dEn: 'Blade trenchers for duct and pipe installation.',
+  },
+  {
+    slug: 'equipo-mediano',
+    es: 'Equipo mediano',
+    en: 'Medium equipment',
+    dEs: 'Equipo mediano de construcción para diversas etapas de obra.',
+    dEn: 'Medium construction equipment for various project stages.',
+  },
+].map((c, i) => ({
+  _id: `machinecat-${c.slug}`,
+  _type: 'machineCategory',
+  order: i + 1,
+  name: { _type: 'localeString', es: c.es, en: c.en },
+  slug: { _type: 'slug', current: c.slug },
+  description: { _type: 'localeText', es: c.dEs, en: c.dEn },
+}))
+
+// Legacy ids from an earlier seed used dots (e.g. "project.prado-norte"). Sanity's
+// content-versions model treats the pre-dot segment as a release namespace, so those
+// docs are invisible to the public/published perspective. Delete them so only the
+// dot-free ids remain.
+const legacyIds = [
+  'service.infrastructure',
+  'service.urbanization',
+  'service.projects',
+  'service.equipment',
+  'project.ptar-norponiente-ii',
+  'project.ptar-paraiso',
+  'project.prado-norte',
+  'project.desarrollo-sanam-tulum',
+]
+
 async function run() {
-  const docs = [siteSettings, ...services, ...projects]
+  const docs = [siteSettings, ...services, ...projects, ...machineCategories]
   const tx = docs.reduce((t, doc) => t.createOrReplace(doc as any), client.transaction())
   const res = await tx.commit()
   console.log(`Seeded ${docs.length} documents (${res.results.length} operations).`)
+
+  // Remove any leftover dotted-id documents from earlier runs.
+  await Promise.all(
+    legacyIds.map((id) =>
+      client.delete(id).catch(() => {
+        /* ignore if it doesn't exist */
+      }),
+    ),
+  )
+
+  console.log('Cleaned up legacy dotted-id documents (if any).')
   console.log('Next: open the Studio and add cover images to the projects, plus clients & gallery photos.')
 }
 

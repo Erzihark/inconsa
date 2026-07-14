@@ -3,7 +3,7 @@ const props = withDefaults(
   defineProps<{
     to?: string
     href?: string
-    variant?: 'accent' | 'dark' | 'outline'
+    variant?: 'accent' | 'dark' | 'outline' | 'machine'
     type?: 'button' | 'submit'
   }>(),
   { variant: 'accent', type: 'button' },
@@ -15,6 +15,7 @@ const variants: Record<string, string> = {
   accent: 'bg-accent text-ink hover:bg-accent/85',
   dark: 'bg-ink text-white hover:bg-ink-700',
   outline: 'border-2 border-ink text-ink hover:bg-ink hover:text-white',
+  machine: 'bg-machine text-steel hover:bg-machine/85',
 }
 const cls = computed(() => `${base} ${variants[props.variant]}`)
 </script>

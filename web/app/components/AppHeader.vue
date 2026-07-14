@@ -4,9 +4,10 @@ const localePath = useLocalePath()
 const { data: settings } = useSiteSettings()
 
 const nav = computed(() => [
-  { to: localePath('/'), label: t('nav.home') },
+  { to: localePath('/nosotros'), label: t('nav.about') },
   { to: localePath('/servicios'), label: t('nav.services') },
   { to: localePath('/proyectos'), label: t('nav.projects') },
+  { to: localePath('/clientes'), label: t('nav.clients') },
   { to: localePath('/galeria'), label: t('nav.gallery') },
   { to: localePath('/arrendamiento'), label: t('nav.leasing') },
   { to: localePath('/contacto'), label: t('nav.contact') },

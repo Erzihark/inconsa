@@ -13,6 +13,12 @@
   --color-accent: #fed53f; /* yellow — primary accent */
   --color-danger: #db2525; /* red — small accent / alerts */
 
+  /* Leasing theme — intentionally distinct: dark industrial steel + machine orange */
+  --color-steel: #14171d;
+  --color-steel-2: #1e232b;
+  --color-steel-3: #2b313b;
+  --color-machine: #f2820c;
+
   --font-display: 'Bebas Neue', sans-serif;
   --font-subtitle: 'Roboto', sans-serif;
   --font-body: 'Montserrat', sans-serif;
@@ -41,5 +47,108 @@
 
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer components {
+  /* Blueprint grid overlay — pair with a low-opacity wrapper over a dark bg. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  /* Continuous marquee (client logos, etc.) */
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+  }
+
+  /* Portable Text / rich-text content */
+  .rich :where(p) {
+    @apply mb-4 font-body leading-relaxed text-ink/80;
+  }
+  .rich :where(h2) {
+    @apply mb-3 mt-8 font-display text-3xl tracking-wide text-ink;
+  }
+  .rich :where(h3) {
+    @apply mb-2 mt-6 font-display text-2xl tracking-wide text-ink;
+  }
+  .rich :where(ul) {
+    @apply mb-4 list-disc space-y-1 pl-5 text-ink/80;
+  }
+  .rich :where(ol) {
+    @apply mb-4 list-decimal space-y-1 pl-5 text-ink/80;
+  }
+  .rich :where(a) {
+    @apply text-danger underline underline-offset-2 hover:opacity-80;
+  }
+  .rich :where(strong) {
+    @apply font-semibold text-ink;
+  }
+  .rich :where(blockquote) {
+    @apply my-6 border-l-4 border-accent pl-4 font-subtitle italic text-ink/70;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/*
+ * Scroll reveal + entrance animations.
+ * Gated on `scripting: enabled` so the SSR markup is identical to the client (no
+ * hydration mismatch) and no-JS / crawlers always see fully-rendered content.
+ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: none;
+  }
+  .rise {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in-view {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .rise {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
