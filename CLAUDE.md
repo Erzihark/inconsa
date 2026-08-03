@@ -69,11 +69,33 @@ Feature branch → push → **PR** → merge. Never commit straight to `master`.
 ## Current status
 
 - ✅ Phases 0–4 all merged to `master` (PR #1).
-- ✅ Design v2 (professional polish pass) — on `feat/design-v2`: animation system v2,
-  fixed dark header, cinematic heroes, diagonal cuts, marquees, richer cards, page
-  transitions, favicon, and **placeholder photography seeded into Sanity**.
+- ✅ Design v2 (professional polish pass) — on `feat/design-v2` (pushed): animation
+  system v2, fixed dark header, cinematic heroes, diagonal cuts, marquees, richer cards,
+  page transitions, favicon, and **placeholder photography seeded into Sanity**.
+- ✅ Phase 5 SEO + deploy prep (code-side) — on `feat/seo-deploy` (stacked on design-v2):
+  schema.org, dynamic sitemap, robots, 301s, ISR, OG, `DEPLOY.md` runbook.
 - Sanity live + seeded (incl. 5 machine categories, 10 placeholder photos); all pages
   build (exit 0), render live data, and hydrate cleanly (0 console errors).
+
+## SEO (Phase 5)
+
+- **Structured data** (`app/composables/useSiteIdentity.ts`, called in `app.vue`):
+  `GeneralContractor`/LocalBusiness/Organization from siteSettings (name, address,
+  phone, email, socials, foundingDate). `defineBreadcrumb` on project + category detail.
+  @nuxtjs/seo also emits WebSite/WebPage automatically.
+- **Sitemap**: `server/api/__sitemap__/urls.ts` (defineSitemapEventHandler) returns
+  project + machineCategory slugs with `_i18nTransform: true` → per-locale sitemaps with
+  hreflang alternates. `/sitemap_index.xml` → `es-MX.xml` + `en-US.xml`.
+- **Robots**: allow all, disallow `/api/`, references sitemap.
+- **OG**: static `public/og-default.jpg` (1200×630) global default; project/category
+  pages override with their cover image (Sanity CDN crop).
+- **301 redirects** (nuxt.config `routeRules`) from the old site's URLs: `/acerca→
+  /nosotros`, the two typo'd `/poltica-*` paths, `/mensaje-de-nuestro-fundador*`, and the
+  4 old auto-generated `/proyectos/project-*` slugs → `/proyectos`. (radix3 route rules
+  don't match partial-segment wildcards — old project slugs are listed explicitly.)
+- **ISR**: `routeRules '/**': { isr: 600 }` (10-min revalidate); `/api/**` excluded.
+- **Deploy**: see `DEPLOY.md` (Vercel root dir = `web/`, env vars, Sanity CORS, DNS,
+  Studio deploy). Env template in `web/.env.example`.
 
 ## Data fetching (IMPORTANT)
 
@@ -130,8 +152,17 @@ CV download wired in header/footer from `siteSettings.cv`.
 
 ## Branch/PR state
 
-`master` = Phases 0–4 (PR #1 merged). `feat/design-v2` = design polish pass (this
-branch). The token can't open PRs — user opens them via compare links.
+`master` = Phases 0–4 (PR #1 merged). `feat/design-v2` = design polish pass (pushed).
+`feat/seo-deploy` (stacked on design-v2) = Phase 5 SEO + deploy prep. Merge order:
+design-v2 → seo-deploy. The token can't open PRs — user opens them via compare links.
+
+## Next steps
+
+- Merge `feat/design-v2`, then `feat/seo-deploy`.
+- Execute `DEPLOY.md`: Vercel deploy (root=`web/`) + env vars, Sanity CORS for the live
+  domain, DNS cutover, Resend key, `sanity deploy` for the Studio, submit sitemap to GSC.
+- Client (Studio): replace placeholder photos with real INCONSA photos; delete the
+  `test-project` doc (it currently shows on the site + in the sitemap).
 
 ## Next steps
 

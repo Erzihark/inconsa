@@ -35,12 +35,51 @@ export default defineNuxtConfig({
   site: {
     url: siteUrl,
     name: 'Grupo INCONSA',
+    description:
+      'Constructora en Cancún especializada en obra civil, urbanización e infraestructura desde 2006.',
     defaultLocale: 'es',
   },
 
-  // Dynamic OG-image generation needs a native renderer; static og:image via
-  // useSeoMeta is enough for now. Revisit in Phase 5 if we want generated images.
+  // Dynamic OG-image generation needs a native renderer; we ship a static default
+  // share image (public/og-default.jpg) via useSeoMeta instead.
   ogImage: { enabled: false },
+
+  // Sitemap: static routes are auto-discovered; CMS detail routes come from the
+  // server source below (projects + machine categories, expanded per locale).
+  sitemap: {
+    sources: ['/api/__sitemap__/urls'],
+    // Home + key hubs get a higher default priority.
+    defaults: { changefreq: 'weekly', priority: 0.7 },
+  },
+
+  robots: {
+    // Public marketing site: allow everything, keep internal endpoints out.
+    disallow: ['/api/'],
+  },
+
+  // 301 redirects from the old site's URLs + ISR caching for the CMS-driven pages.
+  routeRules: {
+    // Cached SSR (Incremental Static Regeneration) — CMS edits appear within ~10 min.
+    '/**': { isr: 60 * 10 },
+    '/api/**': { isr: false },
+    // Old → new URL migration (preserve SEO equity).
+    '/acerca': { redirect: { to: '/nosotros', statusCode: 301 } },
+    '/mensaje-de-nuestro-fundador': {
+      redirect: { to: '/mensaje-del-fundador', statusCode: 301 },
+    },
+    '/mensaje-de-nuestro-fundador/**': {
+      redirect: { to: '/mensaje-del-fundador', statusCode: 301 },
+    },
+    '/poltica-de-privacidad': { redirect: { to: '/politica-de-privacidad', statusCode: 301 } },
+    '/poltica-de-calidad': { redirect: { to: '/politica-de-calidad', statusCode: 301 } },
+    // Old auto-generated project slugs (from the previous site's sitemap) no longer
+    // exist → send to the listing. Exact paths: radix3 route rules don't match
+    // partial-segment wildcards, so we list them.
+    '/proyectos/project-one-f5w4d-rky6a': { redirect: { to: '/proyectos', statusCode: 301 } },
+    '/proyectos/project-two-ky966-m6d28': { redirect: { to: '/proyectos', statusCode: 301 } },
+    '/proyectos/project-three-sng7y-w3md4': { redirect: { to: '/proyectos', statusCode: 301 } },
+    '/proyectos/project-six-6f87e-jtbxg': { redirect: { to: '/proyectos', statusCode: 301 } },
+  },
 
   sanity: {
     projectId: process.env.NUXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder',
