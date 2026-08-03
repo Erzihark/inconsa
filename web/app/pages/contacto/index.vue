@@ -29,7 +29,7 @@ useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.subt
     <section class="mx-auto grid max-w-6xl gap-12 px-4 py-16 lg:grid-cols-5">
       <!-- Form -->
       <div class="lg:col-span-3">
-        <h2 class="mb-6 font-display text-3xl tracking-wide text-ink">{{ t('contact.formTitle') }}</h2>
+        <h2 class="mb-6 font-display text-3xl text-ink">{{ t('contact.formTitle') }}</h2>
         <form class="space-y-5" @submit.prevent="submit">
           <div class="grid gap-5 sm:grid-cols-2">
             <label class="block">
@@ -67,11 +67,15 @@ useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.subt
             <UiButton type="submit" :disabled="state === 'sending'">
               {{ state === 'sending' ? t('contact.sending') : t('actions.send') }}
             </UiButton>
-            <p v-if="state === 'success'" class="font-subtitle text-sm font-semibold text-ink">
-              {{ t('contact.success') }}
-            </p>
-            <p v-else-if="state === 'error'" class="font-subtitle text-sm font-semibold text-danger">
-              {{ t('contact.error') }}
+            <!-- Status is announced to screen readers, not just shown. -->
+            <p
+              role="status"
+              aria-live="polite"
+              class="font-subtitle text-sm font-semibold"
+              :class="state === 'error' ? 'text-danger' : 'text-ink'"
+            >
+              <template v-if="state === 'success'">{{ t('contact.success') }}</template>
+              <template v-else-if="state === 'error'">{{ t('contact.error') }}</template>
             </p>
           </div>
         </form>
@@ -81,23 +85,38 @@ useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.subt
       <aside class="lg:col-span-2">
         <div class="bg-ink p-8 text-white">
           <h2 class="mb-6 font-display text-2xl tracking-wide">{{ t('contact.infoTitle') }}</h2>
-          <ul class="space-y-4 font-subtitle text-sm">
-            <li v-if="contact?.address" class="flex gap-3">
-              <span class="text-accent">▹</span><span>{{ contact.address }}</span>
-            </li>
-            <li v-if="contact?.phone" class="flex gap-3">
-              <span class="text-accent">▹</span>
-              <a :href="`tel:${contact.phone}`" class="hover:text-accent">{{ contact.phone }}</a>
-            </li>
-            <li v-if="contact?.emailContact" class="flex gap-3">
-              <span class="text-accent">▹</span>
-              <a :href="`mailto:${contact.emailContact}`" class="hover:text-accent">{{ contact.emailContact }}</a>
-            </li>
-            <li v-if="contact?.emailQuotes" class="flex gap-3">
-              <span class="text-accent">▹</span>
-              <a :href="`mailto:${contact.emailQuotes}`" class="hover:text-accent">{{ contact.emailQuotes }}</a>
-            </li>
-          </ul>
+          <!-- Labelled rows read better than a glyph-bulleted list. -->
+          <dl class="space-y-5 font-subtitle text-sm">
+            <div v-if="contact?.address">
+              <dt class="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                {{ t('contact.address') }}
+              </dt>
+              <dd class="mt-1 text-white/85">{{ contact.address }}</dd>
+            </div>
+            <div v-if="contact?.phone">
+              <dt class="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                {{ t('contact.phone') }}
+              </dt>
+              <dd class="mt-1">
+                <a :href="`tel:${contact.phone}`" class="text-white/85 hover:text-accent">{{ contact.phone }}</a>
+              </dd>
+            </div>
+            <div v-if="contact?.emailContact || contact?.emailQuotes">
+              <dt class="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                {{ t('contact.email') }}
+              </dt>
+              <dd v-if="contact?.emailContact" class="mt-1">
+                <a :href="`mailto:${contact.emailContact}`" class="text-white/85 hover:text-accent">
+                  {{ contact.emailContact }}
+                </a>
+              </dd>
+              <dd v-if="contact?.emailQuotes" class="mt-1">
+                <a :href="`mailto:${contact.emailQuotes}`" class="text-white/85 hover:text-accent">
+                  {{ contact.emailQuotes }}
+                </a>
+              </dd>
+            </div>
+          </dl>
           <a
             v-if="contact?.mapUrl"
             :href="contact.mapUrl"

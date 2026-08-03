@@ -16,7 +16,9 @@ export const FEATURED_PROJECTS_QUERY = `*[_type == "project" && featured == true
 }`
 
 // Home: featured first, then most recent — always returns up to 6.
-export const HOME_PROJECTS_QUERY = `*[_type == "project"] | order(featured desc, coalesce(order, 999) asc, date desc)[0...6]{
+// Home shows a single full row of three. A partial second row would leave a
+// hole in the grid; the "ver proyectos" link carries the rest.
+export const HOME_PROJECTS_QUERY = `*[_type == "project"] | order(featured desc, coalesce(order, 999) asc, date desc)[0...3]{
   _id, title, slug, status, location, coverImage
 }`
 

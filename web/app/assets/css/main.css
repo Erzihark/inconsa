@@ -36,12 +36,28 @@
     @apply bg-background text-ink font-body antialiased;
   }
 
+  /*
+   * Bebas Neue is a condensed display face: at large sizes wide tracking bleeds
+   * the presence out of a headline. Near-zero tracking keeps the words dense and
+   * heavy. Small caps labels still opt into wide tracking locally.
+   */
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display tracking-wide;
+    @apply font-display;
+    letter-spacing: 0.01em;
     text-wrap: balance;
+  }
+
+  /* Kill orphaned last words in running copy. */
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Figures line up in stat bands and spec rows instead of jittering. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
 
   a {
@@ -123,19 +139,19 @@
 
   /* Portable Text / rich-text content */
   .rich :where(p) {
-    @apply mb-4 font-body leading-relaxed text-ink/80;
+    @apply mb-4 max-w-[65ch] font-body leading-relaxed text-ink/80;
   }
   .rich :where(h2) {
-    @apply mb-3 mt-8 font-display text-3xl tracking-wide text-ink;
+    @apply mb-3 mt-8 font-display text-3xl text-ink;
   }
   .rich :where(h3) {
-    @apply mb-2 mt-6 font-display text-2xl tracking-wide text-ink;
+    @apply mb-2 mt-6 font-display text-2xl text-ink;
   }
   .rich :where(ul) {
-    @apply mb-4 list-disc space-y-1 pl-5 text-ink/80;
+    @apply mb-4 max-w-[65ch] list-disc space-y-1 pl-5 text-ink/80;
   }
   .rich :where(ol) {
-    @apply mb-4 list-decimal space-y-1 pl-5 text-ink/80;
+    @apply mb-4 max-w-[65ch] list-decimal space-y-1 pl-5 text-ink/80;
   }
   .rich :where(a) {
     @apply text-danger underline underline-offset-2 hover:opacity-80;
