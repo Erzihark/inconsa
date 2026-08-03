@@ -5,6 +5,21 @@ useHead(localeHead)
 useHead({
   titleTemplate: (title?: string) => (title ? `${title} · Grupo INCONSA` : 'Grupo INCONSA'),
 })
+
+// Organisation structured data (GeneralContractor / LocalBusiness).
+useSiteIdentity()
+
+// Global social-share defaults (pages override og:image where they have a cover).
+const { public: pub } = useRuntimeConfig()
+const siteUrl = (pub.siteUrl as string) || 'https://www.inconsa.mx'
+useSeoMeta({
+  ogType: 'website',
+  ogSiteName: 'Grupo INCONSA',
+  ogImage: `${siteUrl}/og-default.jpg`,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  twitterCard: 'summary_large_image',
+})
 </script>
 
 <template>

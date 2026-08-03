@@ -24,10 +24,28 @@ const { data: machines } = await useSanityData<Machine[]>(
   { slug },
 )
 
+const img = useSanityImage()
+const ogImage = computed(() => {
+  const i = category.value?.image
+  return i?.asset?._ref ? img(i).width(1200).height(630).fit('crop').auto('format').url() : undefined
+})
+
 useSeoMeta({
   title: () => loc(category.value?.name) || t('leasing.title'),
   description: () => loc(category.value?.description) || t('leasing.subtitle'),
+  ogTitle: () => `${loc(category.value?.name)} — ${t('leasing.title')}`,
+  ogImage: () => ogImage.value,
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: t('nav.home'), item: localePath('/') },
+      { name: t('leasing.title'), item: localePath('/arrendamiento') },
+      { name: loc(category.value?.name) || t('leasing.title') },
+    ],
+  }),
+])
 </script>
 
 <template>

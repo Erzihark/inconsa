@@ -35,12 +35,30 @@ const formattedDate = computed(() => {
 
 const description = computed(() => loc(project.value?.description))
 
+const img = useSanityImage()
+const ogImage = computed(() => {
+  const c = project.value?.coverImage
+  return c?.asset?._ref ? img(c).width(1200).height(630).fit('crop').auto('format').url() : undefined
+})
+
 useSeoMeta({
   title: () => loc(project.value?.title) || t('projects.title'),
   description: () =>
     loc(project.value?.seo?.metaDescription) ||
     `${loc(project.value?.title)} — ${project.value?.location || 'Grupo INCONSA'}`,
+  ogTitle: () => loc(project.value?.title) || t('projects.title'),
+  ogImage: () => ogImage.value,
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: t('nav.home'), item: localePath('/') },
+      { name: t('projects.title'), item: localePath('/proyectos') },
+      { name: loc(project.value?.title) || t('projects.title') },
+    ],
+  }),
+])
 </script>
 
 <template>
