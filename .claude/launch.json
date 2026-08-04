@@ -7,6 +7,14 @@
       "runtimeArgs": ["run", "dev"],
       "cwd": "web",
       "port": 3000
+    },
+    {
+      "name": "inconsa-web-prod",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".output/server/index.mjs"],
+      "cwd": "web",
+      "port": 3100,
+      "autoPort": true
     }
   ]
 }

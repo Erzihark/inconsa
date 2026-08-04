@@ -220,6 +220,16 @@
       transform 0.75s var(--ease-out-soft);
     will-change: opacity, transform, filter;
   }
+  /* Release the compositor layers once the reveal has played. Long pages hold
+   * dozens of these at once; keeping `will-change` on all of them for the whole
+   * session is what made Style & Layout the biggest main-thread cost. */
+  .reveal.in-view,
+  .reveal-left.in-view,
+  .reveal-right.in-view,
+  .reveal-scale.in-view,
+  .in-view :is(.reveal, .reveal-left, .reveal-right, .reveal-scale) {
+    will-change: auto;
+  }
   .reveal {
     transform: translateY(30px);
   }

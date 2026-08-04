@@ -183,6 +183,43 @@ CV download wired in header/footer from `siteSettings.cv`.
   `useContactPrefill`, wired into every "Solicitar cotización" CTA (machine, category,
   leasing, project, services, home) + history fallback for the header nav. Verified in
   ES/EN with Playwright: build green, correct drafts, no hydration warnings.
+- 2026-08-04 — Performance pass (`perf/audit`). Lighthouse (mobile, simulated
+  throttling) over all 26 routes, before → after: perf **68 → 90**, FCP
+  **4.60s → 2.46s**, LCP **5.51s → 2.85s**, page weight **869 KB → 377 KB**.
+  See "Performance" below. a11y/best-practices/SEO unchanged; 0 console errors.
+
+## Performance
+
+Measured with Lighthouse against `node .output/server/index.mjs` (mobile preset,
+`throttlingMethod: 'simulate'`), every ES + EN route. What moved the numbers:
+
+1. **`useSanityData` / `useSanityImage` no longer call `useSanity()`.** That
+   composable statically imports `@sanity/core-loader` (visual editing), pulling
+   `@sanity/client` + xstate + rxjs + comlink + an EventSource polyfill into the
+   browser — ~240 kB of code the site never runs, since visual editing is off.
+   They now hit Sanity's GROQ HTTP endpoint with `$fetch` (same endpoint the SDK
+   calls) and read project/dataset from `useSanityConfig()`. Entry chunk
+   **445 kB → 305 kB**; the Sanity SDK is now a lazy chunk nothing loads.
+   ⚠️ If visual editing or `SanityImage` is ever enabled, revisit this.
+2. **`nitro.compressPublicAssets`** (gzip + brotli). Assets were served
+   uncompressed — Lighthouse flagged 426 KiB. Entry chunk is now 100 kB brotli.
+   Vercel compresses at the edge anyway, but this fixes any other host.
+3. **`preconnect` to `cdn.sanity.io`** in `app.head` — every page loads images
+   from it; saves the DNS/TCP/TLS round trips before the LCP image.
+4. **`fetchpriority="high"`** on the four hero images (`AppImage` gained the
+   prop; set on HomeHero + the leasing/leasing-category/project heroes).
+5. **Dropped font weight 500** from Roboto and Montserrat — no `font-medium`
+   utility exists anywhere, and each weight is another set of woff2 subsets.
+6. **`will-change: auto` on `.in-view`** so revealed elements release their
+   compositor layers instead of holding them for the whole session.
+
+Known, not fixed: **Sanity CORS does not include `https://www.inconsa.mx`** (only
+`localhost:3000`). Initial page loads are unaffected (SSR), but client-side
+navigation to a page that fetches will fail in production. Pre-existing —
+`DEPLOY.md` lists it. Add the origin in Sanity → API → CORS origins.
+
+TBT is noisy under simulated throttling (76–282 ms across identical runs of the
+same route); FCP/LCP are stable to ±30 ms. Judge changes on FCP/LCP, not TBT.
 
 ## Design skills (taste-skill)
 

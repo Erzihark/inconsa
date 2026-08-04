@@ -40,6 +40,7 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
           :source="heroImage"
           alt=""
           loading="eager"
+          fetchpriority="high"
           :widths="[768, 1280, 1920]"
           sizes="100vw"
           img-class="kenburns absolute inset-0 h-full w-full object-cover opacity-40"

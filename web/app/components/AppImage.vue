@@ -8,12 +8,15 @@ const props = withDefaults(
     sizes?: string
     widths?: number[]
     loading?: 'lazy' | 'eager'
+    /** Set 'high' on the hero/LCP image so it outranks the JS bundle. */
+    fetchpriority?: 'high' | 'low' | 'auto'
     imgClass?: string
   }>(),
   {
     sizes: '100vw',
     widths: () => [400, 800, 1200, 1600],
     loading: 'lazy',
+    fetchpriority: 'auto',
   },
 )
 
@@ -40,6 +43,7 @@ const fallbackSrc = computed(() =>
     :sizes="sizes"
     :alt="alt || ''"
     :loading="loading"
+    :fetchpriority="fetchpriority"
     :class="imgClass"
     decoding="async"
   />
