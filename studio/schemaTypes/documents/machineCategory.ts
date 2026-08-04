@@ -3,12 +3,12 @@ import { defineType, defineField } from 'sanity'
 /** A category of leasable machinery (e.g. excavators, trenchers). Phase 2. */
 export const machineCategory = defineType({
   name: 'machineCategory',
-  title: 'Machine category',
+  title: 'Categoría de máquina',
   type: 'document',
   fields: [
     defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Nombre',
       type: 'localeString',
       validation: (Rule) => Rule.required(),
     }),
@@ -19,17 +19,17 @@ export const machineCategory = defineType({
       options: { source: 'name.es', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: 'description', title: 'Description', type: 'localeText' }),
-    defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'description', title: 'Descripción', type: 'localeText' }),
+    defineField({ name: 'image', title: 'Imagen', type: 'image', options: { hotspot: true } }),
     defineField({
       name: 'order',
-      title: 'Manual order',
+      title: 'Orden manual',
       type: 'number',
-      description: 'Lower numbers appear first.',
+      description: 'Los números más bajos aparecen primero.',
     }),
   ],
   orderings: [
-    { title: 'Manual order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
+    { title: 'Orden manual', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
   ],
   preview: { select: { title: 'name.es', media: 'image' } },
 })

@@ -4,9 +4,9 @@ import { supportedLanguages } from '../languages'
 /** A multi-line plain-text string, translated per language ({ es, en }). */
 export const localeText = defineType({
   name: 'localeText',
-  title: 'Localized text',
+  title: 'Texto largo localizado',
   type: 'object',
-  fieldsets: [{ name: 'translations', title: 'Translations', options: { collapsible: true } }],
+  fieldsets: [{ name: 'translations', title: 'Traducciones', options: { collapsible: true } }],
   fields: supportedLanguages.map((lang) => ({
     name: lang.id,
     title: lang.title,

@@ -6,22 +6,22 @@ import { defineType, defineField } from 'sanity'
  */
 export const rentalOptions = defineType({
   name: 'rentalOptions',
-  title: 'Rental options',
+  title: 'Opciones de renta',
   type: 'object',
   fields: [
-    defineField({ name: 'hourly', title: 'Available by the hour', type: 'boolean', initialValue: false }),
+    defineField({ name: 'hourly', title: 'Disponible por hora', type: 'boolean', initialValue: false }),
     defineField({
       name: 'hourlyRate',
-      title: 'Hourly rate (MXN)',
+      title: 'Tarifa por hora (MXN)',
       type: 'number',
       hidden: ({ parent }) => !parent?.hourly,
     }),
-    defineField({ name: 'perProject', title: 'Available per project', type: 'boolean', initialValue: true }),
+    defineField({ name: 'perProject', title: 'Disponible por proyecto', type: 'boolean', initialValue: true }),
     defineField({
       name: 'notes',
-      title: 'Pricing notes',
+      title: 'Notas de precios',
       type: 'localeText',
-      description: 'Optional clarifications shown next to the rental options.',
+      description: 'Aclaraciones opcionales que se muestran junto a las opciones de renta.',
     }),
   ],
 })

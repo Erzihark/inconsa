@@ -1,6 +1,7 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
+import { esESLocale } from '@sanity/locale-es-es'
 import { schemaTypes, singletonTypes } from './schemaTypes'
 import { structure } from './structure'
 
@@ -12,7 +13,7 @@ export default defineConfig({
   title: 'INCONSA',
   projectId,
   dataset,
-  plugins: [structureTool({ structure }), visionTool()],
+  plugins: [structureTool({ structure }), visionTool(), esESLocale()],
   schema: {
     types: schemaTypes,
     // Hide singletons from the global "create new" menu.

@@ -6,17 +6,17 @@ import { defineType, defineField, defineArrayMember } from 'sanity'
  */
 export const project = defineType({
   name: 'project',
-  title: 'Project',
+  title: 'Proyecto',
   type: 'document',
   groups: [
-    { name: 'content', title: 'Content', default: true },
-    { name: 'media', title: 'Media' },
+    { name: 'content', title: 'Contenido', default: true },
+    { name: 'media', title: 'Multimedia' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Título',
       type: 'localeString',
       group: 'content',
       validation: (Rule) => Rule.required(),
@@ -31,13 +31,13 @@ export const project = defineType({
     }),
     defineField({
       name: 'status',
-      title: 'Status',
+      title: 'Estatus',
       type: 'string',
       group: 'content',
       options: {
         list: [
-          { title: 'In progress', value: 'in-progress' },
-          { title: 'Completed', value: 'completed' },
+          { title: 'En proceso', value: 'in-progress' },
+          { title: 'Completado', value: 'completed' },
         ],
         layout: 'radio',
       },
@@ -46,43 +46,43 @@ export const project = defineType({
     }),
     defineField({
       name: 'location',
-      title: 'Location',
+      title: 'Ubicación',
       type: 'string',
       group: 'content',
-      description: 'e.g. "Cancún, Quintana Roo".',
+      description: 'ej. "Cancún, Quintana Roo".',
     }),
     defineField({
       name: 'date',
-      title: 'Date',
+      title: 'Fecha',
       type: 'date',
       group: 'content',
-      description: 'Completion date, or start date for in-progress projects.',
+      description: 'Fecha de finalización, o de inicio para proyectos en proceso.',
       options: { dateFormat: 'YYYY-MM' },
     }),
     defineField({
       name: 'client',
-      title: 'Client',
+      title: 'Cliente',
       type: 'reference',
       group: 'content',
       to: [{ type: 'client' }],
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Descripción',
       type: 'localeBlock',
       group: 'content',
     }),
     defineField({
       name: 'coverImage',
-      title: 'Cover image',
+      title: 'Imagen de portada',
       type: 'figure',
       group: 'media',
-      description: 'Shown on cards and as the hero of the project page.',
+      description: 'Se muestra en las tarjetas y como imagen principal de la página del proyecto.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'images',
-      title: 'Gallery',
+      title: 'Galería',
       type: 'array',
       group: 'media',
       of: [defineArrayMember({ type: 'figure' })],
@@ -90,23 +90,23 @@ export const project = defineType({
     }),
     defineField({
       name: 'featured',
-      title: 'Featured on home page',
+      title: 'Destacado en la página de inicio',
       type: 'boolean',
       group: 'content',
       initialValue: false,
     }),
     defineField({
       name: 'order',
-      title: 'Manual order',
+      title: 'Orden manual',
       type: 'number',
       group: 'content',
-      description: 'Lower numbers appear first. Leave empty to sort by date.',
+      description: 'Los números más bajos aparecen primero. Déjalo vacío para ordenar por fecha.',
     }),
     defineField({ name: 'seo', title: 'SEO', type: 'seo', group: 'seo' }),
   ],
   orderings: [
     {
-      title: 'Manual order',
+      title: 'Orden manual',
       name: 'orderAsc',
       by: [
         { field: 'order', direction: 'asc' },
@@ -117,7 +117,7 @@ export const project = defineType({
   preview: {
     select: { title: 'title.es', subtitle: 'status', media: 'coverImage' },
     prepare({ title, subtitle, media }) {
-      const label = subtitle === 'completed' ? 'Completed' : 'In progress'
+      const label = subtitle === 'completed' ? 'Completado' : 'En proceso'
       return { title, subtitle: label, media }
     },
   },

@@ -3,27 +3,27 @@ import { defineType, defineField } from 'sanity'
 /** A past/current client, shown in the clients section. */
 export const client = defineType({
   name: 'client',
-  title: 'Client',
+  title: 'Cliente',
   type: 'document',
   fields: [
     defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Nombre',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: 'description', title: 'Description', type: 'localeText' }),
-    defineField({ name: 'logo', title: 'Logo', type: 'image', options: { hotspot: true } }),
-    defineField({ name: 'website', title: 'Website', type: 'url' }),
+    defineField({ name: 'description', title: 'Descripción', type: 'localeText' }),
+    defineField({ name: 'logo', title: 'Logotipo', type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'website', title: 'Sitio web', type: 'url' }),
     defineField({
       name: 'order',
-      title: 'Manual order',
+      title: 'Orden manual',
       type: 'number',
-      description: 'Lower numbers appear first.',
+      description: 'Los números más bajos aparecen primero.',
     }),
   ],
   orderings: [
-    { title: 'Manual order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
+    { title: 'Orden manual', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
   ],
   preview: { select: { title: 'name', media: 'logo' } },
 })

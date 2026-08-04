@@ -10,13 +10,13 @@ export const seo = defineType({
   type: 'object',
   options: { collapsible: true, collapsed: true },
   fields: [
-    defineField({ name: 'metaTitle', title: 'Meta title', type: 'localeString' }),
-    defineField({ name: 'metaDescription', title: 'Meta description', type: 'localeText' }),
+    defineField({ name: 'metaTitle', title: 'Título meta', type: 'localeString' }),
+    defineField({ name: 'metaDescription', title: 'Descripción meta', type: 'localeText' }),
     defineField({
       name: 'ogImage',
-      title: 'Social share image',
+      title: 'Imagen para redes sociales',
       type: 'image',
-      description: 'Shown when the page is shared on social media (falls back to the cover image).',
+      description: 'Se muestra al compartir la página en redes sociales (usa la imagen de portada como respaldo).',
     }),
   ],
 })

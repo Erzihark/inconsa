@@ -6,35 +6,35 @@ import { defineType, defineField } from 'sanity'
  */
 export const galleryImage = defineType({
   name: 'galleryImage',
-  title: 'Gallery image',
+  title: 'Imagen de galería',
   type: 'document',
   fields: [
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Imagen',
       type: 'figure',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Categoría',
       type: 'string',
-      description: 'Optional label to group gallery images (e.g. "Infraestructura").',
+      description: 'Etiqueta opcional para agrupar imágenes de la galería (ej. "Infraestructura").',
     }),
     defineField({
       name: 'order',
-      title: 'Manual order',
+      title: 'Orden manual',
       type: 'number',
-      description: 'Lower numbers appear first.',
+      description: 'Los números más bajos aparecen primero.',
     }),
   ],
   orderings: [
-    { title: 'Manual order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
+    { title: 'Orden manual', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
   ],
   preview: {
     select: { title: 'image.alt.es', subtitle: 'category', media: 'image' },
     prepare({ title, subtitle, media }) {
-      return { title: title || 'Gallery image', subtitle, media }
+      return { title: title || 'Imagen de galería', subtitle, media }
     },
   },
 })

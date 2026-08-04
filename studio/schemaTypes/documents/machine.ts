@@ -3,12 +3,12 @@ import { defineType, defineField, defineArrayMember } from 'sanity'
 /** A specific leasable machine belonging to a category. Phase 2. */
 export const machine = defineType({
   name: 'machine',
-  title: 'Machine',
+  title: 'Máquina',
   type: 'document',
   fields: [
     defineField({
       name: 'name',
-      title: 'Name',
+      title: 'Nombre',
       type: 'localeString',
       validation: (Rule) => Rule.required(),
     }),
@@ -21,41 +21,41 @@ export const machine = defineType({
     }),
     defineField({
       name: 'category',
-      title: 'Category',
+      title: 'Categoría',
       type: 'reference',
       to: [{ type: 'machineCategory' }],
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: 'description', title: 'Description', type: 'localeText' }),
+    defineField({ name: 'description', title: 'Descripción', type: 'localeText' }),
     defineField({
       name: 'images',
-      title: 'Images',
+      title: 'Imágenes',
       type: 'array',
       of: [defineArrayMember({ type: 'figure' })],
       options: { layout: 'grid' },
     }),
     defineField({
       name: 'specs',
-      title: 'Specifications',
+      title: 'Especificaciones',
       type: 'array',
       of: [defineArrayMember({ type: 'specItem' })],
     }),
-    defineField({ name: 'rental', title: 'Rental options', type: 'rentalOptions' }),
+    defineField({ name: 'rental', title: 'Opciones de renta', type: 'rentalOptions' }),
     defineField({
       name: 'available',
-      title: 'Available for rent',
+      title: 'Disponible para renta',
       type: 'boolean',
       initialValue: true,
     }),
     defineField({
       name: 'order',
-      title: 'Manual order',
+      title: 'Orden manual',
       type: 'number',
-      description: 'Lower numbers appear first.',
+      description: 'Los números más bajos aparecen primero.',
     }),
   ],
   orderings: [
-    { title: 'Manual order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
+    { title: 'Orden manual', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
   ],
   preview: {
     select: { title: 'name.es', subtitle: 'category.name.es', media: 'images.0' },

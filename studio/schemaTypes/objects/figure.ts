@@ -7,16 +7,16 @@ import { defineType, defineField } from 'sanity'
  */
 export const figure = defineType({
   name: 'figure',
-  title: 'Image',
+  title: 'Imagen',
   type: 'image',
   options: { hotspot: true },
   fields: [
     defineField({
       name: 'alt',
-      title: 'Alt text',
+      title: 'Texto alternativo',
       type: 'localeString',
-      description: 'Describe the image for screen readers and search engines.',
+      description: 'Describe la imagen para lectores de pantalla y motores de búsqueda.',
     }),
-    defineField({ name: 'caption', title: 'Caption', type: 'localeString' }),
+    defineField({ name: 'caption', title: 'Pie de foto', type: 'localeString' }),
   ],
 })
