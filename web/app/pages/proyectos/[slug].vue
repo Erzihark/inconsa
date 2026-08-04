@@ -6,6 +6,7 @@ const route = useRoute()
 const { t, locale } = useI18n()
 const loc = useLocalized()
 const localePath = useLocalePath()
+const contactLink = useContactLink()
 
 const slug = route.params.slug as string
 const { data: project } = await useSanityData<Project | null>(
@@ -126,7 +127,9 @@ useSchemaOrg([
     <section class="bg-accent">
       <div class="mx-auto flex max-w-6xl flex-col items-start gap-5 px-4 py-12 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-display text-3xl tracking-wide text-ink sm:text-4xl">{{ t('home.cta.title') }}</h2>
-        <UiButton :to="localePath('/contacto')" variant="dark">{{ t('actions.requestQuote') }}</UiButton>
+        <UiButton :to="contactLink('project', loc(project.title))" variant="dark">
+          {{ t('actions.requestQuote') }}
+        </UiButton>
       </div>
     </section>
   </div>

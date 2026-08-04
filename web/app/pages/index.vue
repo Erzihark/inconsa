@@ -4,6 +4,7 @@ import { HOME_PROJECTS_QUERY, HOME_STATS_QUERY, SERVICES_QUERY, CLIENTS_QUERY } 
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const contactLink = useContactLink()
 
 const { data: projects } = useSanityData<Project[]>('home-projects', HOME_PROJECTS_QUERY)
 const { data: services } = useSanityData<Service[]>('home-services', SERVICES_QUERY)
@@ -179,7 +180,7 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
           </Reveal>
         </div>
         <Reveal :delay="160" variant="right" class="shrink-0">
-          <UiButton :to="localePath('/contacto')" arrow>{{ t('actions.requestQuote') }}</UiButton>
+          <UiButton :to="contactLink('general')" arrow>{{ t('actions.requestQuote') }}</UiButton>
         </Reveal>
       </div>
     </section>

@@ -75,7 +75,21 @@
     "success": "Gracias, tu mensaje fue enviado.",
     "error": "Ocurrió un error. Intenta de nuevo.",
     "phone": "Teléfono",
-    "address": "Dirección"
+    "address": "Dirección",
+    "prefillNote": "Redactamos este mensaje según la página de la que vienes. Edítalo como quieras.",
+    "prefill": {
+      "machine": "Hola, me interesa rentar {subject}. ¿Podrían enviarme disponibilidad y una cotización?",
+      "machineCategory": "Hola, me interesa rentar maquinaria de la categoría {subject}. ¿Podrían enviarme disponibilidad y una cotización?",
+      "leasing": "Hola, me interesa el arrendamiento de maquinaria. ¿Podrían enviarme información de disponibilidad y tarifas?",
+      "project": "Hola, vi su proyecto \"{subject}\" y me gustaría platicar sobre una obra similar.",
+      "projects": "Hola, revisé sus proyectos y me gustaría platicar sobre una obra que tengo en mente.",
+      "service": "Hola, me interesa su servicio de {subject}. ¿Podrían darme más información y una cotización?",
+      "services": "Hola, me interesan sus servicios y me gustaría solicitar una cotización.",
+      "gallery": "Hola, vi su galería de obras y me gustaría platicar sobre un proyecto.",
+      "clients": "Hola, me gustaría conocer más sobre su experiencia con clientes como el mío y solicitar una cotización.",
+      "about": "Hola, conocí a Grupo INCONSA en su sitio y me gustaría platicar sobre un proyecto.",
+      "general": "Hola, me gustaría solicitar una cotización para mi proyecto."
+    }
   },
   "leasing": {
     "title": "Arrendamiento de maquinaria",

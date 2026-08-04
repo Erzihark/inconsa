@@ -5,6 +5,7 @@ import { MACHINE_CATEGORIES_QUERY } from '~/utils/queries'
 const { t } = useI18n()
 const localePath = useLocalePath()
 const loc = useLocalized()
+const contactLink = useContactLink()
 const { data: categories } = useSanityData<(MachineCategory & { machineCount?: number })[]>(
   'machine-categories',
   MACHINE_CATEGORIES_QUERY,
@@ -68,7 +69,7 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
           {{ t('leasing.intro') }}
         </p>
         <div class="rise mt-10 flex flex-wrap gap-4" style="animation-delay: 340ms">
-          <UiButton :to="localePath('/contacto')" variant="machine" arrow>{{ t('actions.requestQuote') }}</UiButton>
+          <UiButton :to="contactLink('leasing')" variant="machine" arrow>{{ t('actions.requestQuote') }}</UiButton>
           <a
             href="#categorias"
             class="inline-flex items-center justify-center gap-2 border-2 border-white/25 px-7 py-3.5 font-subtitle text-sm font-semibold uppercase tracking-widest text-white transition-colors hover:border-machine hover:text-machine"
@@ -172,7 +173,7 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
           <h2 class="font-display text-5xl tracking-wide sm:text-6xl">{{ t('home.cta.title') }}</h2>
         </Reveal>
         <Reveal :delay="120" variant="right">
-          <UiButton :to="localePath('/contacto')" variant="dark" arrow>{{ t('actions.requestQuote') }}</UiButton>
+          <UiButton :to="contactLink('leasing')" variant="dark" arrow>{{ t('actions.requestQuote') }}</UiButton>
         </Reveal>
       </div>
     </section>
