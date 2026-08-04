@@ -6,49 +6,49 @@ import { defineType, defineField } from 'sanity'
  */
 export const siteSettings = defineType({
   name: 'siteSettings',
-  title: 'Site settings',
+  title: 'Configuración del sitio',
   type: 'document',
   groups: [
-    { name: 'company', title: 'Company', default: true },
-    { name: 'contact', title: 'Contact & social' },
-    { name: 'documents', title: 'Documents' },
+    { name: 'company', title: 'Empresa', default: true },
+    { name: 'contact', title: 'Contacto y redes sociales' },
+    { name: 'documents', title: 'Documentos' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
     defineField({
       name: 'companyName',
-      title: 'Company name',
+      title: 'Nombre de la empresa',
       type: 'string',
       group: 'company',
       initialValue: 'Grupo INCONSA',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: 'logo', title: 'Logo', type: 'image', group: 'company' }),
-    defineField({ name: 'about', title: 'About the company', type: 'localeBlock', group: 'company' }),
+    defineField({ name: 'logo', title: 'Logotipo', type: 'image', group: 'company' }),
+    defineField({ name: 'about', title: 'Acerca de la empresa', type: 'localeBlock', group: 'company' }),
     defineField({
       name: 'founderMessage',
-      title: "Founder's message",
+      title: 'Mensaje del fundador',
       type: 'localeBlock',
       group: 'company',
     }),
-    defineField({ name: 'qualityPolicy', title: 'Quality policy', type: 'localeBlock', group: 'company' }),
-    defineField({ name: 'privacyPolicy', title: 'Privacy policy', type: 'localeBlock', group: 'company' }),
+    defineField({ name: 'qualityPolicy', title: 'Política de calidad', type: 'localeBlock', group: 'company' }),
+    defineField({ name: 'privacyPolicy', title: 'Política de privacidad', type: 'localeBlock', group: 'company' }),
     defineField({
       name: 'contact',
-      title: 'Contact details',
+      title: 'Datos de contacto',
       type: 'object',
       group: 'contact',
       fields: [
-        defineField({ name: 'address', title: 'Address', type: 'text', rows: 2 }),
-        defineField({ name: 'phone', title: 'Phone', type: 'string' }),
-        defineField({ name: 'emailContact', title: 'General email', type: 'string' }),
-        defineField({ name: 'emailQuotes', title: 'Quotes email', type: 'string' }),
-        defineField({ name: 'mapUrl', title: 'Google Maps URL', type: 'url' }),
+        defineField({ name: 'address', title: 'Dirección', type: 'text', rows: 2 }),
+        defineField({ name: 'phone', title: 'Teléfono', type: 'string' }),
+        defineField({ name: 'emailContact', title: 'Correo general', type: 'string' }),
+        defineField({ name: 'emailQuotes', title: 'Correo de cotizaciones', type: 'string' }),
+        defineField({ name: 'mapUrl', title: 'URL de Google Maps', type: 'url' }),
       ],
     }),
     defineField({
       name: 'social',
-      title: 'Social links',
+      title: 'Redes sociales',
       type: 'object',
       group: 'contact',
       fields: [
@@ -59,22 +59,22 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: 'cv',
-      title: 'CV / company profile (PDF)',
+      title: 'CV / perfil de la empresa (PDF)',
       type: 'localeFile',
       group: 'documents',
-      description: 'The downloadable document. Upload a Spanish and (optionally) an English version.',
+      description: 'El documento descargable. Sube una versión en español y (opcionalmente) una en inglés.',
     }),
     defineField({
       name: 'defaultSeo',
-      title: 'Default SEO',
+      title: 'SEO predeterminado',
       type: 'seo',
       group: 'seo',
-      description: 'Fallback meta title/description and social image for pages without their own.',
+      description: 'Título/descripción meta y imagen social de respaldo para páginas sin los suyos propios.',
     }),
   ],
   preview: {
     prepare() {
-      return { title: 'Site settings' }
+      return { title: 'Configuración del sitio' }
     },
   },
 })

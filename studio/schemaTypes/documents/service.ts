@@ -3,27 +3,27 @@ import { defineType, defineField } from 'sanity'
 /** A service the company offers, grouped into one of four categories. */
 export const service = defineType({
   name: 'service',
-  title: 'Service',
+  title: 'Servicio',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Título',
       type: 'localeString',
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: 'description', title: 'Description', type: 'localeText' }),
-    defineField({ name: 'image', title: 'Image', type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'description', title: 'Descripción', type: 'localeText' }),
+    defineField({ name: 'image', title: 'Imagen', type: 'image', options: { hotspot: true } }),
     defineField({
       name: 'group',
-      title: 'Group',
+      title: 'Grupo',
       type: 'string',
       options: {
         list: [
-          { title: 'Infrastructure', value: 'infrastructure' },
-          { title: 'Urbanization', value: 'urbanization' },
-          { title: 'Projects', value: 'projects' },
-          { title: 'Equipment rental', value: 'equipment' },
+          { title: 'Infraestructura', value: 'infrastructure' },
+          { title: 'Urbanización', value: 'urbanization' },
+          { title: 'Proyectos', value: 'projects' },
+          { title: 'Renta de equipo', value: 'equipment' },
         ],
         layout: 'radio',
       },
@@ -31,13 +31,13 @@ export const service = defineType({
     }),
     defineField({
       name: 'order',
-      title: 'Manual order',
+      title: 'Orden manual',
       type: 'number',
-      description: 'Lower numbers appear first.',
+      description: 'Los números más bajos aparecen primero.',
     }),
   ],
   orderings: [
-    { title: 'Manual order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
+    { title: 'Orden manual', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] },
   ],
   preview: {
     select: { title: 'title.es', subtitle: 'group', media: 'image' },

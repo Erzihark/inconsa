@@ -47,7 +47,7 @@ const contactLink = useContactLink()
         >
           {{ t('leasing.byHour') }}
           <template v-if="machine.rental.hourlyRate">
-            · ${{ machine.rental.hourlyRate }} {{ t('leasing.perHour') }}</template
+            ${{ machine.rental.hourlyRate }} {{ t('leasing.perHour') }}</template
           >
         </span>
         <span

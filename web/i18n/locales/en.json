@@ -12,12 +12,21 @@
   "actions": {
     "downloadCv": "Download résumé",
     "viewProjects": "View projects",
-    "viewAll": "View all",
     "requestQuote": "Request a quote",
     "send": "Send",
     "readMore": "Read more",
     "backToProjects": "Back to projects",
-    "viewProject": "View project"
+    "viewProject": "View project",
+    "backHome": "Back to home"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "error": {
+    "notFoundTitle": "This page does not exist",
+    "notFoundText": "The address you followed moved or was never here. From the home page you can reach projects, services and contact.",
+    "genericTitle": "Something failed on our end",
+    "genericText": "We could not load this page. Try again in a moment, or write to us and we will sort it out."
   },
   "projects": {
     "title": "Projects",
@@ -35,6 +44,7 @@
     "aboutProject": "About the project"
   },
   "home": {
+    "heroEyebrow": "Building in Cancún since 2006",
     "heroTitle": "We build infrastructure that lasts",
     "heroSubtitle": "A Cancún construction company specializing in civil works, urbanization and infrastructure since 2006.",
     "featuredProjects": "Featured projects",
@@ -120,7 +130,7 @@
     "founder": "Founder's message"
   },
   "meta": {
-    "homeTitle": "Construction company in Cancún — Civil works & infrastructure",
+    "homeTitle": "Construction company in Cancún, civil works & infrastructure",
     "homeDescription": "Grupo INCONSA: a Cancún construction company specializing in civil works, urbanization, infrastructure and machinery rental since 2006."
   }
 }

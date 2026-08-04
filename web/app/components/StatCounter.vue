@@ -34,5 +34,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <span ref="el"><span>{{ display }}</span>{{ suffix }}</span>
+  <span ref="el"><span class="tabular">{{ display }}</span>{{ suffix }}</span>
 </template>

@@ -158,6 +158,13 @@ CV download wired in header/footer from `siteSettings.cv`.
 - 2026-07-08 (cont.) — Replaced @vueuse/motion with CSS+IO reveals (no hydration
   mismatch). Built Phase 4 leasing (dark/orange, distinct) + seeded 5 categories.
   Diagnosed & fixed the payload-hydration bug (useSanityData). Console clean everywhere.
+- 2026-08-04 — Localized Sanity Studio's admin UI to Spanish (`feat/studio-spanish-locale`):
+  added `@sanity/locale-es-es` plugin (`esESLocale()` in `sanity.config.ts`) and translated
+  all schema `title`/`description` strings + `structure.ts` menu labels to Spanish (field
+  *names* and select-list `value`s left unchanged — only human-facing labels). Sanity's
+  hosted login screen (Google/GitHub/E-mail picker) stays in English — it's served outside
+  the Studio bundle and isn't affected by this plugin. `tsc --noEmit` and `sanity build`
+  both clean.
 - 2026-07-14 — Design v2 polish pass (`feat/design-v2`): motion system v2 (directional
   blurred reveals, image wipes, diagonal cuts, outlined-text marquees, Ken Burns),
   fixed scroll-aware header (route-aware leasing accent), cinematic heroes, overlay
@@ -165,10 +172,37 @@ CV download wired in header/footer from `siteSettings.cv`.
   Seeded 10 verified Unsplash placeholder photos into Sanity (projects/categories/
   gallery) + fix script for two mismapped photos. Verified: build green, 0 console
   errors, screenshots on all key pages.
+- 2026-08-03 — Installed taste-skill and ran it as a design audit pass
+  (`feat/taste-pass`, pushed). Stripped AI tells (scroll cue, index numerals on
+  images, second marquee, eyebrow inflation, all em-dashes), rebuilt the home
+  services row as an asymmetric bento, fixed empty grid cells on home + leasing,
+  capped the services-page zigzag, tightened Bebas display tracking, and added a
+  skip link, a branded 404, form `aria-live`, and Phosphor social marks. Build
+  green, 0 console errors, screenshots on all key pages.
 - 2026-08-04 — Context-aware contact pre-fill (see section above): `useContactLink` /
   `useContactPrefill`, wired into every "Solicitar cotización" CTA (machine, category,
   leasing, project, services, home) + history fallback for the header nav. Verified in
   ES/EN with Playwright: build green, correct drafts, no hydration warnings.
+
+## Design skills (taste-skill)
+
+Installed from github.com/Leonxlnx/taste-skill via `npx skills add` → 13 skills in
+`.agents/skills/` (symlinked into `.claude/skills/`). Payload is **gitignored**;
+`skills-lock.json` is committed so the install is reproducible. The two that apply
+here: **`design-taste-frontend`** (v2, the main anti-slop rulebook: dials, AI-tell bans,
+pre-flight checklist) and **`redesign-existing-projects`** (audit-first upgrade of an
+existing codebase). Re-run the install command to update.
+
+Design read for this repo: *redesign - preserve*, dials `VARIANCE 7 / MOTION 7 /
+DENSITY 4`. Brand tokens, IA, slugs and copy voice are fixed inputs (skill §11.C/11.F).
+**Standing constraints from the pre-flight check** — keep these true in new work:
+zero em-dashes in user-visible strings; max 1 eyebrow per 3 sections per page; max 1
+marquee per page; no enumerating numerals overlaid on images; no scroll cues; grids
+must have no empty trailing cell; max 2 consecutive image+text zigzag rows.
+
+⚠️ Don't put `|` inside a page title string — `nuxt-seo-utils` treats it as the title
+separator and truncates everything after it. Use a comma; the ` | Grupo INCONSA` suffix
+comes from `titleTemplate` in `app.vue`.
 
 ## Branch/PR state
 

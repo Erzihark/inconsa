@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   const topic = body?.context?.topic?.trim().slice(0, 40)
   const subject = body?.context?.subject?.trim().slice(0, 120)
   // Tells the sales team what the visitor was looking at when they wrote in.
-  const origin = topic ? `Interés: ${topic}${subject ? ` — ${subject}` : ''}` : null
+  const origin = topic ? `Interés: ${topic}${subject ? ` - ${subject}` : ''}` : null
 
   // Honeypot: silently accept bots without sending.
   if (body?.company) return { ok: true }
@@ -43,8 +43,8 @@ export default defineEventHandler(async (event) => {
       from: 'INCONSA Web <onboarding@resend.dev>',
       to: [to],
       reply_to: email,
-      subject: `Nuevo mensaje de ${name}${subject ? ` — ${subject}` : ''} — inconsa.mx`,
-      text: `${message}\n\n— ${name} <${email}>${origin ? `\n${origin}` : ''}`,
+      subject: `Nuevo mensaje de ${name}${subject ? ` - ${subject}` : ''} | inconsa.mx`,
+      text: `${message}\n\n- ${name} <${email}>${origin ? `\n${origin}` : ''}`,
     },
   })
 

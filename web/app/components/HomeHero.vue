@@ -44,9 +44,9 @@ const words = computed(() => t('home.heroTitle').split(' '))
     <div class="relative mx-auto w-full max-w-6xl px-4 pb-32 pt-28">
       <p class="rise mb-5 inline-flex items-center gap-3 font-subtitle text-sm font-semibold uppercase tracking-[0.3em] text-accent">
         <span class="inline-block h-px w-10 bg-accent" aria-hidden="true" />
-        Cancún, Q. Roo · Desde 2006
+        {{ t('home.heroEyebrow') }}
       </p>
-      <h1 class="max-w-5xl font-display text-6xl leading-[0.92] tracking-wide sm:text-7xl md:text-[7.5rem]">
+      <h1 class="max-w-5xl font-display text-5xl leading-[0.88] tracking-[0.01em] sm:text-7xl md:text-[6rem]">
         <span
           v-for="(w, i) in words"
           :key="i"
@@ -69,18 +69,6 @@ const words = computed(() => t('home.heroTitle').split(' '))
           {{ t('actions.requestQuote') }}
         </UiButton>
       </div>
-    </div>
-
-    <!-- scroll cue -->
-    <div
-      class="rise absolute bottom-16 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/50 sm:flex"
-      style="animation-delay: 1000ms"
-      aria-hidden="true"
-    >
-      <span class="font-subtitle text-[0.65rem] uppercase tracking-[0.25em]">Scroll</span>
-      <span class="relative block h-10 w-px overflow-hidden bg-white/20">
-        <span class="absolute inset-x-0 top-0 h-4 animate-bounce bg-accent" />
-      </span>
     </div>
   </section>
 </template>

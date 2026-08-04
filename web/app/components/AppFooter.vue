@@ -4,12 +4,14 @@ const localePath = useLocalePath()
 const { data: settings } = useSiteSettings()
 const year = new Date().getFullYear()
 
+import { PhFacebookLogo, PhInstagramLogo, PhLinkedinLogo } from '@phosphor-icons/vue'
+
 const socials = computed(() => {
   const s = settings.value?.social
   return [
-    { key: 'facebook', url: s?.facebook },
-    { key: 'instagram', url: s?.instagram },
-    { key: 'linkedin', url: s?.linkedin },
+    { key: 'facebook', label: 'Facebook', icon: PhFacebookLogo, url: s?.facebook },
+    { key: 'instagram', label: 'Instagram', icon: PhInstagramLogo, url: s?.instagram },
+    { key: 'linkedin', label: 'LinkedIn', icon: PhLinkedinLogo, url: s?.linkedin },
   ].filter((x) => !!x.url)
 })
 
@@ -45,10 +47,10 @@ function backToTop() {
             :href="s.url"
             target="_blank"
             rel="noopener"
-            :aria-label="s.key"
+            :aria-label="s.label"
             class="flex h-9 w-9 items-center justify-center bg-white/10 text-white/80 transition hover:-translate-y-0.5 hover:bg-accent hover:text-ink"
           >
-            <span class="font-subtitle text-xs font-bold uppercase">{{ s.key.slice(0, 2) }}</span>
+            <component :is="s.icon" :size="18" weight="fill" aria-hidden="true" />
           </a>
         </div>
       </div>

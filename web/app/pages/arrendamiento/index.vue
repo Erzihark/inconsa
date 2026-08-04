@@ -14,6 +14,14 @@ const { data: categories } = useSanityData<(MachineCategory & { machineCount?: n
 // Hero background: first category image (excavator placeholder until replaced).
 const heroImage = computed(() => categories.value?.[0]?.image ?? null)
 
+// A 3-up grid leaves a hole whenever the category count is not a multiple of 3.
+// Cells are 2/6 wide normally; the final short row stretches to fill the row.
+const spanFor = (i: number, total: number) => {
+  const rem = total % 3
+  if (rem === 0 || i < total - rem) return 'lg:col-span-2'
+  return rem === 2 ? 'lg:col-span-3' : 'lg:col-span-6'
+}
+
 const marqueeWords = computed(() =>
   categories.value?.length
     ? categories.value.map((c) => loc(c.name) || '').filter(Boolean)
@@ -60,7 +68,7 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
           {{ t('leasing.eyebrow') }}
         </p>
         <h1
-          class="rise max-w-4xl font-display text-6xl leading-[0.92] tracking-wide sm:text-7xl md:text-8xl"
+          class="rise max-w-4xl font-display text-6xl leading-[0.92] sm:text-7xl md:text-8xl"
           style="animation-delay: 100ms"
         >
           {{ t('leasing.title') }}
@@ -97,7 +105,7 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
     <!-- How it works -->
     <section class="bg-steel-2">
       <div class="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-        <h2 class="mb-10 flex items-center gap-3 font-display text-4xl tracking-wide text-white">
+        <h2 class="mb-10 flex items-center gap-3 font-display text-4xl text-white">
           <span class="h-0.5 w-10 bg-machine" aria-hidden="true" />{{ t('leasing.howItWorks') }}
         </h2>
         <div class="grid gap-6 md:grid-cols-2">
@@ -142,17 +150,18 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
             <span class="h-0.5 w-10 bg-machine" aria-hidden="true" />
             {{ t('leasing.categoriesSubtitle') }}
           </p>
-          <h2 class="font-display text-4xl tracking-wide text-white sm:text-6xl">{{ t('leasing.categories') }}</h2>
+          <h2 class="font-display text-4xl text-white sm:text-6xl">{{ t('leasing.categories') }}</h2>
         </div>
-        <div v-if="categories?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div v-if="categories?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
           <Reveal
             v-for="(c, i) in categories"
             :key="c._id"
             :delay="(i % 3) * 100"
             variant="wipe"
+            :class="spanFor(i, categories.length)"
             style="--wipe-color: var(--color-steel-3)"
           >
-            <CategoryCard :category="c" :index="i" />
+            <CategoryCard :category="c" />
           </Reveal>
         </div>
         <p v-else class="py-12 font-subtitle text-white/50">{{ t('leasing.noMachines') }}</p>
@@ -170,7 +179,7 @@ useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subt
         class="relative mx-auto flex max-w-6xl flex-col items-start gap-5 px-4 py-20 sm:flex-row sm:items-center sm:justify-between sm:py-24"
       >
         <Reveal>
-          <h2 class="font-display text-5xl tracking-wide sm:text-6xl">{{ t('home.cta.title') }}</h2>
+          <h2 class="font-display text-5xl sm:text-6xl">{{ t('home.cta.title') }}</h2>
         </Reveal>
         <Reveal :delay="120" variant="right">
           <UiButton :to="contactLink('leasing')" variant="dark" arrow>{{ t('actions.requestQuote') }}</UiButton>

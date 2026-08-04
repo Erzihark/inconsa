@@ -3,7 +3,7 @@
 const localeHead = useLocaleHead()
 useHead(localeHead)
 useHead({
-  titleTemplate: (title?: string) => (title ? `${title} · Grupo INCONSA` : 'Grupo INCONSA'),
+  titleTemplate: (title?: string) => (title ? `${title} | Grupo INCONSA` : 'Grupo INCONSA'),
 })
 
 // Organisation structured data (GeneralContractor / LocalBusiness).

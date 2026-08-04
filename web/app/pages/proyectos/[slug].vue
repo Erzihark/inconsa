@@ -46,7 +46,7 @@ useSeoMeta({
   title: () => loc(project.value?.title) || t('projects.title'),
   description: () =>
     loc(project.value?.seo?.metaDescription) ||
-    `${loc(project.value?.title)} — ${project.value?.location || 'Grupo INCONSA'}`,
+    `${loc(project.value?.title)}, ${project.value?.location || 'Grupo INCONSA'}`,
   ogTitle: () => loc(project.value?.title) || t('projects.title'),
   ogImage: () => ogImage.value,
 })
@@ -89,7 +89,7 @@ useSchemaOrg([
         </NuxtLink>
         <div class="rise mb-5" style="animation-delay: 60ms"><StatusBadge :status="project.status" /></div>
         <h1
-          class="rise max-w-4xl font-display text-6xl leading-none tracking-wide sm:text-7xl"
+          class="rise max-w-4xl font-display text-6xl leading-none sm:text-7xl"
           style="animation-delay: 120ms"
         >
           {{ loc(project.title) }}
@@ -126,7 +126,7 @@ useSchemaOrg([
     <!-- CTA -->
     <section class="bg-accent">
       <div class="mx-auto flex max-w-6xl flex-col items-start gap-5 px-4 py-12 sm:flex-row sm:items-center sm:justify-between">
-        <h2 class="font-display text-3xl tracking-wide text-ink sm:text-4xl">{{ t('home.cta.title') }}</h2>
+        <h2 class="font-display text-3xl text-ink sm:text-4xl">{{ t('home.cta.title') }}</h2>
         <UiButton :to="contactLink('project', loc(project.title))" variant="dark">
           {{ t('actions.requestQuote') }}
         </UiButton>
