@@ -262,10 +262,12 @@ Measured with Lighthouse against `node .output/server/index.mjs` (mobile preset,
 6. **`will-change: auto` on `.in-view`** so revealed elements release their
    compositor layers instead of holding them for the whole session.
 
-Known, not fixed: **Sanity CORS does not include `https://www.inconsa.mx`** (only
-`localhost:3000`). Initial page loads are unaffected (SSR), but client-side
-navigation to a page that fetches will fail in production. Pre-existing —
-`DEPLOY.md` lists it. Add the origin in Sanity → API → CORS origins.
+**Sanity CORS** (2026-08-04): `https://www.inconsa.mx` is now allow-listed, without
+credentials, so client-side navigation works in production. Initial page loads never
+depended on it (SSR). Allowed origins are now `localhost:3000`, `localhost:3333` and
+`https://www.inconsa.mx`. The apex `https://inconsa.mx` is **not** allowed — fine while
+it 301s to `www` (the browser never fetches from the apex origin), but add it if the
+apex is ever served directly. Manage with `npx sanity cors list|add` from `studio/`.
 
 TBT is noisy under simulated throttling (76–282 ms across identical runs of the
 same route); FCP/LCP are stable to ±30 ms. Judge changes on FCP/LCP, not TBT.
@@ -299,8 +301,8 @@ design-v2 → seo-deploy. The token can't open PRs — user opens them via compa
 ## Next steps
 
 - Merge `feat/design-v2`, then `feat/seo-deploy`.
-- Execute `DEPLOY.md`: Vercel deploy (root=`web/`) + env vars, Sanity CORS for the live
-  domain, DNS cutover, Resend key, `sanity deploy` for the Studio, submit sitemap to GSC.
+- Execute `DEPLOY.md`: Vercel deploy (root=`web/`) + env vars, DNS cutover, Resend key,
+  `sanity deploy` for the Studio, submit sitemap to GSC. (Sanity CORS for `www` is done.)
 - Client (Studio): replace placeholder photos with real INCONSA photos; delete the
   `test-project` doc (it currently shows on the site + in the sitemap).
 

@@ -29,11 +29,29 @@ The Nuxt app lives in **`web/`** (this is a monorepo — `studio/` is the CMS).
 ## 2. Allow the production domain in Sanity (CORS)
 
 The browser refetches Sanity on client-side navigation, so the live origin must be
-allow-listed:
+allow-listed. Initial page loads are server-rendered and never depend on this.
 
-- https://sanity.io/manage → project **inconsa** (`4sxos8s4`) → **API → CORS origins**
-- Add `https://www.inconsa.mx` and `https://inconsa.mx` (and your `*.vercel.app` URL for
-  testing). **Leave "Allow credentials" unchecked** (public read only).
+✅ **`https://www.inconsa.mx` is already allow-listed** (added 2026-08-04, credentials
+off). Current origins: `http://localhost:3000`, `http://localhost:3333`,
+`https://www.inconsa.mx`.
+
+Still worth adding, depending on the setup:
+
+- **`https://inconsa.mx`** — only needed if the apex serves the site directly. If it
+  301s to `www` (step 3), the browser never issues a Sanity request from the apex.
+- **Your `*.vercel.app` preview URL** — needed to click through a preview deploy;
+  client-side navigation will otherwise fail there while production is fine.
+
+Either from the CLI in `studio/`:
+
+```bash
+npx sanity cors add https://inconsa.mx --no-credentials
+```
+
+or at https://sanity.io/manage → project **inconsa** (`4sxos8s4`) → **API → CORS
+origins**. **Always leave "Allow credentials" unchecked** — the site only reads public
+published content, and enabling it would let that origin send tokens and cookies.
+Check what is currently allowed with `npx sanity cors list`.
 
 ## 3. Point the domain at Vercel
 
