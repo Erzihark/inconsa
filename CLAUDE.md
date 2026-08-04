@@ -262,10 +262,18 @@ Measured with Lighthouse against `node .output/server/index.mjs` (mobile preset,
 6. **`will-change: auto` on `.in-view`** so revealed elements release their
    compositor layers instead of holding them for the whole session.
 
-Known, not fixed: **Sanity CORS does not include `https://www.inconsa.mx`** (only
-`localhost:3000`). Initial page loads are unaffected (SSR), but client-side
-navigation to a page that fetches will fail in production. Pre-existing —
-`DEPLOY.md` lists it. Add the origin in Sanity → API → CORS origins.
+**Sanity CORS** (2026-08-04): both production hosts are now allow-listed without
+credentials, so client-side navigation works in production. Initial page loads never
+depended on it (SSR). Allowed origins: `http://localhost:3000`, `http://localhost:3333`,
+`https://www.inconsa.mx`, `https://inconsa.mx`.
+
+⚠️ **Still missing: the `*.vercel.app` preview origin** — the site has never been
+deployed, so no hostname exists yet. Add the exact one after the first deploy
+(`npx sanity cors add https://<name>.vercel.app --no-credentials` from `studio/`).
+Until then a preview deploy will render fine on first load and fail to fetch on any
+client-side navigation, which looks like a bug in the site but is not. Inspect the
+current list with `npx sanity cors list`. Keep credentials off: the site only reads
+public published content.
 
 TBT is noisy under simulated throttling (76–282 ms across identical runs of the
 same route); FCP/LCP are stable to ±30 ms. Judge changes on FCP/LCP, not TBT.
@@ -299,8 +307,8 @@ design-v2 → seo-deploy. The token can't open PRs — user opens them via compa
 ## Next steps
 
 - Merge `feat/design-v2`, then `feat/seo-deploy`.
-- Execute `DEPLOY.md`: Vercel deploy (root=`web/`) + env vars, Sanity CORS for the live
-  domain, DNS cutover, Resend key, `sanity deploy` for the Studio, submit sitemap to GSC.
+- Execute `DEPLOY.md`: Vercel deploy (root=`web/`) + env vars, DNS cutover, Resend key,
+  `sanity deploy` for the Studio, submit sitemap to GSC. (Sanity CORS for `www` is done.)
 - Client (Studio): replace placeholder photos with real INCONSA photos; delete the
   `test-project` doc (it currently shows on the site + in the sitemap).
 
