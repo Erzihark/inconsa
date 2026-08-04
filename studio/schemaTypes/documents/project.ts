@@ -1,4 +1,5 @@
 import { defineType, defineField, defineArrayMember } from 'sanity'
+import { headingRules, slugRules } from '../seoRules'
 
 /**
  * A construction project — the core of the site's work showcase. Projects are
@@ -19,15 +20,18 @@ export const project = defineType({
       title: 'Título',
       type: 'localeString',
       group: 'content',
-      validation: (Rule) => Rule.required(),
+      description: 'Se usa como título de la página y como encabezado H1.',
+      validation: headingRules,
     }),
     defineField({
       name: 'slug',
       title: 'Slug (URL)',
       type: 'slug',
       group: 'content',
-      options: { source: 'title.es', maxLength: 96 },
-      validation: (Rule) => Rule.required(),
+      description:
+        'La URL del proyecto. Una vez publicado, cambiarlo rompe los enlaces existentes: procura dejarlo fijo.',
+      options: { source: 'title.es', maxLength: 80 },
+      validation: slugRules,
     }),
     defineField({
       name: 'status',
@@ -71,6 +75,15 @@ export const project = defineType({
       title: 'Descripción',
       type: 'localeBlock',
       group: 'content',
+      description:
+        'El texto de la página del proyecto. También alimenta la descripción en Google cuando no defines una propia en la pestaña SEO.',
+      validation: (Rule) =>
+        Rule.custom((value: unknown) => {
+          const blocks = (value as { es?: unknown[] } | undefined)?.es
+          return Array.isArray(blocks) && blocks.length
+            ? true
+            : 'Escribe la descripción en español. Sin ella la página del proyecto queda casi vacía para Google.'
+        }),
     }),
     defineField({
       name: 'coverImage',

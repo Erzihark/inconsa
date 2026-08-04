@@ -4,7 +4,7 @@ const loc = useLocalized()
 const { data: settings } = useSiteSettings()
 const content = computed(() => loc(settings.value?.qualityPolicy))
 
-useSeoMeta({ title: () => t('footer.quality'), description: () => t('footer.quality') })
+useSeoMeta({ title: () => t('meta.qualityTitle'), description: () => t('meta.qualityDescription') })
 </script>
 
 <template>

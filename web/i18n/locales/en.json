@@ -130,7 +130,27 @@
     "founder": "Founder's message"
   },
   "meta": {
-    "homeTitle": "Construction company in Cancún, civil works & infrastructure",
-    "homeDescription": "Grupo INCONSA: a Cancún construction company specializing in civil works, urbanization, infrastructure and machinery rental since 2006."
+    "homeTitle": "Construction company in Cancún",
+    "homeDescription": "Grupo INCONSA: a Cancún construction company specializing in civil works, urbanization, infrastructure and machinery rental since 2006.",
+    "projectsTitle": "Civil works and infrastructure projects",
+    "projectsDescription": "Urbanization, sewerage, drinking water and roadworks delivered by Grupo INCONSA across Cancún and Quintana Roo.",
+    "servicesTitle": "Construction services",
+    "servicesDescription": "Infrastructure, urbanization, detailed design and machinery rental. Construction services for public and private works in Cancún.",
+    "clientsTitle": "Clients and delivered works",
+    "clientsDescription": "Developers, hotels and public agencies that have trusted Grupo INCONSA with their works in Cancún and the Riviera Maya.",
+    "galleryTitle": "Project gallery",
+    "galleryDescription": "Photographs of our works in progress and completed: urbanization, treatment plants, roadworks and infrastructure across Quintana Roo.",
+    "contactTitle": "Contact and quotes",
+    "contactDescription": "Request a free quote for your project. Phone, email and address for Grupo INCONSA in Cancún, Quintana Roo.",
+    "aboutTitle": "About us, building since 2006",
+    "aboutDescription": "Grupo INCONSA has been building civil works and infrastructure in Cancún since 2006. Read about our history, our team and how we work.",
+    "founderTitle": "Founder's message",
+    "founderDescription": "Our founder on the vision, the values and the commitment that have guided Grupo INCONSA since 2006.",
+    "qualityTitle": "Quality policy",
+    "qualityDescription": "Our commitment to quality on every job: process, control and continuous improvement across Grupo INCONSA projects.",
+    "privacyTitle": "Privacy policy",
+    "privacyDescription": "How Grupo INCONSA collects, uses and protects the personal data you share through this site and the contact form.",
+    "leasingTitle": "Machinery leasing",
+    "leasingDescription": "Rent excavators, backhoes and trenchers by the hour or per project in Cancún and Quintana Roo. Request a quote."
   }
 }

@@ -28,7 +28,7 @@ const marqueeWords = computed(() =>
     : ['Excavadoras', 'Retroexcavadoras', 'Zanjadoras'],
 )
 
-useSeoMeta({ title: () => t('leasing.title'), description: () => t('leasing.subtitle') })
+useSeoMeta({ title: () => t('meta.leasingTitle'), description: () => t('meta.leasingDescription') })
 </script>
 
 <template>

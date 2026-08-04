@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { headingRules, requiredLocaleRule } from '../seoRules'
 
 /** A service the company offers, grouped into one of four categories. */
 export const service = defineType({
@@ -10,10 +11,19 @@ export const service = defineType({
       name: 'title',
       title: 'Título',
       type: 'localeString',
-      validation: (Rule) => Rule.required(),
+      validation: headingRules,
     }),
-    defineField({ name: 'description', title: 'Descripción', type: 'localeText' }),
-    defineField({ name: 'image', title: 'Imagen', type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'description',
+      title: 'Descripción',
+      type: 'localeText',
+      description:
+        'Una o dos frases sobre el servicio. Es prácticamente todo el texto de la página "Servicios", así que sin ella la página queda vacía para Google.',
+      validation: requiredLocaleRule(
+        'Escribe la descripción en español. Es el contenido de la página "Servicios".',
+      ),
+    }),
+    defineField({ name: 'image', title: 'Imagen', type: 'figure' }),
     defineField({
       name: 'group',
       title: 'Grupo',
