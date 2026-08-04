@@ -1,10 +1,8 @@
 import { defineType, defineField } from 'sanity'
-import { metaTitleRules, metaDescriptionRules, titleHint, descriptionHint } from '../seoRules'
 
 /**
  * Optional per-document SEO overrides. When empty, the frontend derives sensible
- * defaults from the document's own title/description, so leaving this collapsed
- * is a valid choice — the warnings only fire on what is actually filled in.
+ * defaults from the document's title/description.
  */
 export const seo = defineType({
   name: 'seo',
@@ -12,26 +10,13 @@ export const seo = defineType({
   type: 'object',
   options: { collapsible: true, collapsed: true },
   fields: [
-    defineField({
-      name: 'metaTitle',
-      title: 'Título meta',
-      type: 'localeString',
-      description: `Reemplaza el título de la pestaña y del resultado en Google. ${titleHint}`,
-      validation: metaTitleRules,
-    }),
-    defineField({
-      name: 'metaDescription',
-      title: 'Descripción meta',
-      type: 'localeText',
-      description: `El resumen que aparece bajo el título en Google. ${descriptionHint}`,
-      validation: metaDescriptionRules,
-    }),
+    defineField({ name: 'metaTitle', title: 'Título meta', type: 'localeString' }),
+    defineField({ name: 'metaDescription', title: 'Descripción meta', type: 'localeText' }),
     defineField({
       name: 'ogImage',
       title: 'Imagen para redes sociales',
       type: 'image',
-      description:
-        'Se muestra al compartir la página en redes sociales. Ideal 1200x630 px. Si la dejas vacía se usa la imagen de portada.',
+      description: 'Se muestra al compartir la página en redes sociales (usa la imagen de portada como respaldo).',
     }),
   ],
 })

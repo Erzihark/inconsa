@@ -27,13 +27,13 @@ export default defineSitemapEventHandler(async () => {
         loc: `/proyectos/${slug}`,
         _i18nTransform: true,
         changefreq: 'monthly' as const,
-        priority: 0.8 as const,
+        priority: 0.8,
       })),
       ...(result.categories || []).map((slug) => ({
         loc: `/arrendamiento/${slug}`,
         _i18nTransform: true,
         changefreq: 'monthly' as const,
-        priority: 0.6 as const,
+        priority: 0.6,
       })),
     ]
   } catch {

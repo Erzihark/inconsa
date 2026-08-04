@@ -6,7 +6,7 @@ const { t } = useI18n()
 const loc = useLocalized()
 const { data: clients } = useSanityData<ClientDoc[]>('clients', CLIENTS_QUERY)
 
-useSeoMeta({ title: () => t('meta.clientsTitle'), description: () => t('meta.clientsDescription') })
+useSeoMeta({ title: () => t('nav.clients'), description: () => t('meta.homeDescription') })
 </script>
 
 <template>

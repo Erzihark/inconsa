@@ -37,36 +37,17 @@ const formattedDate = computed(() => {
 const description = computed(() => loc(project.value?.description))
 
 const img = useSanityImage()
-const share = (source?: { asset?: { _ref?: string } } | null) =>
-  source?.asset?._ref
-    ? img(source).width(1200).height(630).fit('crop').auto('format').url()
-    : undefined
-
-// The editor's own share image wins; otherwise crop the cover to 1200x630.
-const ogImage = computed(
-  () => share(project.value?.seo?.ogImage) || share(project.value?.coverImage),
-)
-
-// Meta description, best available first: the editor's override, then the
-// project's own prose trimmed to a snippet, then title + location as a floor.
-const metaDescription = computed(() => {
-  const override = loc(project.value?.seo?.metaDescription)
-  if (override) return override
-  const prose = loc(project.value?.excerpt)?.replace(/\s+/g, ' ').trim()
-  if (prose && prose.length > 60) return truncateAtWord(prose, 155)
-  const title = loc(project.value?.title)
-  const where = project.value?.location
-  const padded = where
-    ? `${title}, ${where}. ${t('meta.projectsDescription')}`
-    : t('meta.projectsDescription')
-  return truncateAtWord(padded, 155)
+const ogImage = computed(() => {
+  const c = project.value?.coverImage
+  return c?.asset?._ref ? img(c).width(1200).height(630).fit('crop').auto('format').url() : undefined
 })
 
 useSeoMeta({
-  title: () => loc(project.value?.seo?.metaTitle) || loc(project.value?.title) || t('projects.title'),
-  description: () => metaDescription.value,
+  title: () => loc(project.value?.title) || t('projects.title'),
+  description: () =>
+    loc(project.value?.seo?.metaDescription) ||
+    `${loc(project.value?.title)}, ${project.value?.location || 'Grupo INCONSA'}`,
   ogTitle: () => loc(project.value?.title) || t('projects.title'),
-  ogDescription: () => metaDescription.value,
   ogImage: () => ogImage.value,
 })
 

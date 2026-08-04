@@ -21,21 +21,7 @@ const props = withDefaults(
 )
 
 const img = useSanityImage()
-const loc = useLocalized()
 const hasImage = computed(() => !!props.source?.asset?._ref)
-
-/**
- * Alt text, best available first: the editor's own description on the figure,
- * then whatever the caller derived (a title, a client name), then empty.
- *
- * `alt=""` passed explicitly is a decorative image (hero backgrounds sitting
- * inside `aria-hidden` wrappers) and short-circuits — announcing those would
- * just repeat the heading next to them.
- */
-const resolvedAlt = computed(() => {
-  if (props.alt === '') return ''
-  return loc((props.source as Figure | null | undefined)?.alt) || props.alt || ''
-})
 
 const srcset = computed(() =>
   hasImage.value
@@ -55,7 +41,7 @@ const fallbackSrc = computed(() =>
     :src="fallbackSrc"
     :srcset="srcset"
     :sizes="sizes"
-    :alt="resolvedAlt"
+    :alt="alt || ''"
     :loading="loading"
     :fetchpriority="fetchpriority"
     :class="imgClass"

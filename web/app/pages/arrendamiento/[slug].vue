@@ -26,31 +26,15 @@ const { data: machines } = await useSanityData<Machine[]>(
 )
 
 const img = useSanityImage()
-const share = (source?: { asset?: { _ref?: string } } | null) =>
-  source?.asset?._ref
-    ? img(source).width(1200).height(630).fit('crop').auto('format').url()
-    : undefined
-
-const ogImage = computed(
-  () => share(category.value?.seo?.ogImage) || share(category.value?.image),
-)
-
-// Category descriptions are short by nature, so pad a bare one with the leasing
-// pitch rather than shipping a 40-character meta description.
-const metaDescription = computed(() => {
-  const override = loc(category.value?.seo?.metaDescription)
-  if (override) return override
-  const own = loc(category.value?.description)?.trim()
-  if (!own) return t('meta.leasingDescription')
-  if (own.length >= 70) return truncateAtWord(own, 155)
-  return truncateAtWord(`${own} ${t('meta.leasingDescription')}`, 155)
+const ogImage = computed(() => {
+  const i = category.value?.image
+  return i?.asset?._ref ? img(i).width(1200).height(630).fit('crop').auto('format').url() : undefined
 })
 
 useSeoMeta({
-  title: () => loc(category.value?.seo?.metaTitle) || loc(category.value?.name) || t('leasing.title'),
-  description: () => metaDescription.value,
+  title: () => loc(category.value?.name) || t('leasing.title'),
+  description: () => loc(category.value?.description) || t('leasing.subtitle'),
   ogTitle: () => `${loc(category.value?.name)}, ${t('leasing.title')}`,
-  ogDescription: () => metaDescription.value,
   ogImage: () => ogImage.value,
 })
 

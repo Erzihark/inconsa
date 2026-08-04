@@ -19,8 +19,8 @@ const split = computed(() => ordered.value.slice(0, 2))
 const grid = computed(() => ordered.value.slice(2))
 
 useSeoMeta({
-  title: () => t('meta.servicesTitle'),
-  description: () => t('meta.servicesDescription'),
+  title: () => t('services.title'),
+  description: () => t('meta.homeDescription'),
 })
 </script>
 

@@ -6,7 +6,7 @@ const { data: settings } = useSiteSettings()
 const about = computed(() => loc(settings.value?.about))
 const founder = computed(() => loc(settings.value?.founderMessage))
 
-useSeoMeta({ title: () => t('meta.aboutTitle'), description: () => t('meta.aboutDescription') })
+useSeoMeta({ title: () => t('nav.about'), description: () => t('meta.homeDescription') })
 </script>
 
 <template>

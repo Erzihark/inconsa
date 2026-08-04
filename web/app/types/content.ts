@@ -41,8 +41,6 @@ export interface Project {
   featured?: boolean
   client?: { name: string } | string | null
   seo?: Seo
-  /** Portable-text description flattened to plain text, for meta descriptions. */
-  excerpt?: LocaleString
 }
 
 export interface Service {
@@ -50,14 +48,14 @@ export interface Service {
   title: LocaleString
   description?: LocaleText
   group: 'infrastructure' | 'urbanization' | 'projects' | 'equipment'
-  image?: Figure
+  image?: SanityImage
 }
 
 export interface ClientDoc {
   _id: string
   name: string
   description?: LocaleText
-  logo?: Figure
+  logo?: SanityImage
   website?: string
 }
 
@@ -97,8 +95,7 @@ export interface MachineCategory {
   name: LocaleString
   slug: { current: string }
   description?: LocaleText
-  image?: Figure
-  seo?: Seo
+  image?: SanityImage
 }
 
 export interface Machine {

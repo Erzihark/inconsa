@@ -15,13 +15,6 @@
       "cwd": "web",
       "port": 3100,
       "autoPort": true
-    },
-    {
-      "name": "inconsa-studio",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "cwd": "studio",
-      "port": 3333
     }
   ]
 }

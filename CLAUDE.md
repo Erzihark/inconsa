@@ -97,50 +97,6 @@ Feature branch → push → **PR** → merge. Never commit straight to `master`.
 - **Deploy**: see `DEPLOY.md` (Vercel root dir = `web/`, env vars, Sanity CORS, DNS,
   Studio deploy). Env template in `web/.env.example`.
 
-## SEO audit + CMS enforcement (2026-08-04, `feat/seo-audit`)
-
-Crawled all 30 ES/EN routes and fixed what the code controlled; the rest is content,
-so the Studio schemas now refuse to publish it missing.
-
-**Frontend fixes**
-- ⚠️ **`useSiteIdentity` must resolve settings *before* `useSchemaOrg`.** It reads its
-  argument at registration, not at serialization, and `app.vue` sits outside the
-  Suspense boundary that awaits page-level `useAsyncData`. The LocalBusiness JSON-LD
-  was shipping with no `telephone`, no `email`, `sameAs: []` and the hardcoded
-  fallback address even though all of it was in the CMS. It now awaits, then registers
-  inside `nuxtApp.runWithContext()` (a composable called after an `await` throws
-  "[nuxt] instance unavailable"). `app.vue`'s `await useSiteIdentity()` must stay last.
-- Every page has its own title + meta description under `meta.*` in i18n. Twelve pages
-  previously shared two boilerplate strings; the policy pages used their own title as
-  the description.
-- `seo.metaTitle` and `seo.ogImage` were editable in the Studio but never read;
-  `siteSettings.defaultSeo` was queried and typed but unused. All three are wired now
-  (`defaultSeo` drives the home title/description + the site-wide OG image).
-- `machineCategory` gained an `seo` object, and `project` detail derives its meta
-  description from the project's own prose (`pt::text()` via the `excerpt` field)
-  instead of `"title, location"`.
-- `AppImage` prefers the figure's own alt text over the caller's derived one;
-  `alt=""` still means decorative and short-circuits.
-
-**Studio enforcement** — `studio/schemaTypes/seoRules.ts`, one place for the rules and
-the numbers. TITLE_MAX 44 (the site appends " | Grupo INCONSA"), DESC 70-160.
-- **error (blocks publish):** missing alt text, missing project/service description,
-  missing policy + about + founder body copy, malformed slug, missing logo/phone/email.
-- **warning (publishes, flags):** title/description length, missing EN translation
-  (an untranslated doc ships two indexed URLs with identical titles).
-- `service.image`, `client.logo` and `machineCategory.image` became `figure` so they
-  carry alt text like every other image.
-
-⚠️ **`npx sanity documents validate` reports every marker as "warning"**, including a
-plain `Rule.required()` — it does not reflect the rule's real level. To check levels,
-run `npx sanity exec scripts/check-validation-levels.ts`, which calls Sanity's own
-`validateDocument` and prints the true level per marker.
-
-**Left to the client (the schemas now block or flag each one):** all 5 projects lack a
-description, 2 lack cover alt text, `siteSettings` has no logo, and the about /
-founder / quality / privacy bodies are near-empty (those pages render ~10 words).
-The `test-project` and "Cliente prueba" docs are still live and in the sitemap.
-
 ## Data fetching (IMPORTANT)
 
 Use **`useSanityData(key, query, params)`** (`app/composables/useSanityData.ts`), NOT
@@ -231,11 +187,6 @@ CV download wired in header/footer from `siteSettings.cv`.
   throttling) over all 26 routes, before → after: perf **68 → 90**, FCP
   **4.60s → 2.46s**, LCP **5.51s → 2.85s**, page weight **869 KB → 377 KB**.
   See "Performance" below. a11y/best-practices/SEO unchanged; 0 console errors.
-- 2026-08-04 — SEO audit + CMS enforcement (`feat/seo-audit`). Crawled all 30 routes:
-  duplicate meta descriptions 14 → 0, descriptions under 70 chars 16 → 0, over-length
-  titles 2 → 0. Fixed the LocalBusiness JSON-LD silently dropping every CMS field.
-  Added `studio/schemaTypes/seoRules.ts` so bad SEO cannot be published. See the
-  "SEO audit + CMS enforcement" section.
 
 ## Performance
 

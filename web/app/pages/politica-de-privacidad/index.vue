@@ -4,7 +4,7 @@ const loc = useLocalized()
 const { data: settings } = useSiteSettings()
 const content = computed(() => loc(settings.value?.privacyPolicy))
 
-useSeoMeta({ title: () => t('meta.privacyTitle'), description: () => t('meta.privacyDescription') })
+useSeoMeta({ title: () => t('footer.privacy'), description: () => t('footer.privacy') })
 </script>
 
 <template>

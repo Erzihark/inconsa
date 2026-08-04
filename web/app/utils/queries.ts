@@ -28,12 +28,9 @@ export const HOME_STATS_QUERY = `{
   "clients": count(*[_type == "client"])
 }`
 
-// `excerpt` flattens the portable-text description to plain text so the meta
-// description can fall back to the project's own prose instead of "title, location".
 export const PROJECT_BY_SLUG_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   _id, title, slug, status, location, date, description, coverImage, images,
-  "client": client->{name}, seo,
-  "excerpt": { "es": pt::text(description.es), "en": pt::text(description.en) }
+  "client": client->{name}, seo
 }`
 
 export const PROJECT_SLUGS_QUERY = `*[_type == "project" && defined(slug.current)].slug.current`
@@ -55,7 +52,7 @@ export const MACHINE_CATEGORIES_QUERY = `*[_type == "machineCategory"] | order(c
 }`
 
 export const MACHINE_CATEGORY_BY_SLUG_QUERY = `*[_type == "machineCategory" && slug.current == $slug][0]{
-  _id, name, slug, description, image, seo
+  _id, name, slug, description, image
 }`
 
 export const MACHINES_QUERY = `*[_type == "machine" && available == true] | order(coalesce(order, 999) asc){
