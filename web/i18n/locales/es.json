@@ -12,12 +12,21 @@
   "actions": {
     "downloadCv": "Descargar currículum",
     "viewProjects": "Ver proyectos",
-    "viewAll": "Ver todos",
     "requestQuote": "Solicitar cotización",
     "send": "Enviar",
     "readMore": "Leer más",
     "backToProjects": "Volver a proyectos",
-    "viewProject": "Ver proyecto"
+    "viewProject": "Ver proyecto",
+    "backHome": "Volver al inicio"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido"
+  },
+  "error": {
+    "notFoundTitle": "Esta página no existe",
+    "notFoundText": "La dirección que buscas cambió o nunca estuvo aquí. Desde el inicio puedes llegar a proyectos, servicios y contacto.",
+    "genericTitle": "Algo falló de nuestro lado",
+    "genericText": "No pudimos cargar esta página. Vuelve a intentarlo en un momento o escríbenos y lo resolvemos."
   },
   "projects": {
     "title": "Proyectos",
@@ -35,6 +44,7 @@
     "aboutProject": "Sobre el proyecto"
   },
   "home": {
+    "heroEyebrow": "Constructora en Cancún desde 2006",
     "heroTitle": "Construimos infraestructura que perdura",
     "heroSubtitle": "Constructora en Cancún especializada en obra civil, urbanización e infraestructura desde 2006.",
     "featuredProjects": "Proyectos destacados",
@@ -106,7 +116,7 @@
     "founder": "Mensaje del fundador"
   },
   "meta": {
-    "homeTitle": "Constructora en Cancún — Obra civil e infraestructura",
+    "homeTitle": "Constructora en Cancún, obra civil e infraestructura",
     "homeDescription": "Grupo INCONSA: constructora en Cancún especializada en obra civil, urbanización, infraestructura y renta de maquinaria desde 2006."
   }
 }

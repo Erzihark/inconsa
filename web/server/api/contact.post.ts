@@ -38,8 +38,8 @@ export default defineEventHandler(async (event) => {
       from: 'INCONSA Web <onboarding@resend.dev>',
       to: [to],
       reply_to: email,
-      subject: `Nuevo mensaje de ${name} — inconsa.mx`,
-      text: `${message}\n\n— ${name} <${email}>`,
+      subject: `Nuevo mensaje de ${name} | inconsa.mx`,
+      text: `${message}\n\n- ${name} <${email}>`,
     },
   })
 

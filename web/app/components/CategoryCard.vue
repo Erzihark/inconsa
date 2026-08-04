@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import type { MachineCategory } from '~/types/content'
-const props = defineProps<{ category: MachineCategory & { machineCount?: number }; index?: number }>()
+const props = defineProps<{ category: MachineCategory & { machineCount?: number } }>()
 const loc = useLocalized()
 const { t } = useI18n()
 const localePath = useLocalePath()
 const to = computed(() => localePath(`/arrendamiento/${props.category.slug?.current}`))
-const num = computed(() =>
-  props.index !== undefined ? String(props.index + 1).padStart(2, '0') : null,
-)
 </script>
 
 <template>
@@ -37,15 +34,9 @@ const num = computed(() =>
         aria-hidden="true"
       />
       <span class="absolute left-0 top-0 h-1 w-16 bg-machine transition-all duration-500 group-hover:w-28" />
-      <span
-        v-if="num"
-        class="text-stroke pointer-events-none absolute right-3 top-2 font-display text-5xl tracking-widest text-white/50"
-        aria-hidden="true"
-        >{{ num }}</span
-      >
     </div>
     <div class="flex flex-1 flex-col p-6">
-      <h3 class="font-display text-3xl leading-none tracking-wide text-white">{{ loc(category.name) }}</h3>
+      <h3 class="font-display text-3xl leading-none text-white">{{ loc(category.name) }}</h3>
       <p v-if="loc(category.description)" class="mt-2.5 font-subtitle text-sm leading-relaxed text-white/55">
         {{ loc(category.description) }}
       </p>

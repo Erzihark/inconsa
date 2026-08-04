@@ -16,7 +16,7 @@ withDefaults(defineProps<{ title?: string; eyebrow?: string; subtitle?: string; 
       aria-hidden="true"
       >{{ watermark || title }}</span
     >
-    <div class="relative mx-auto max-w-6xl px-4 pb-20 pt-32 sm:pb-24 sm:pt-40">
+    <div class="relative mx-auto max-w-6xl px-4 pb-16 pt-28 sm:pb-20 sm:pt-32">
       <p
         v-if="eyebrow"
         class="rise mb-3 flex items-center gap-3 font-subtitle text-sm font-semibold uppercase tracking-[0.25em] text-accent"
@@ -25,7 +25,7 @@ withDefaults(defineProps<{ title?: string; eyebrow?: string; subtitle?: string; 
         {{ eyebrow }}
       </p>
       <h1
-        class="rise font-display text-6xl leading-none tracking-wide sm:text-7xl"
+        class="rise font-display text-5xl leading-none sm:text-6xl"
         style="animation-delay: 80ms"
       >
         <slot>{{ title }}</slot>

@@ -30,12 +30,9 @@ const marqueeClients = computed(() => {
   return c.length ? [...c, ...c] : []
 })
 
-// Big outlined text strip: the four service groups as a slow marquee.
-const marqueeWords = computed(() =>
-  services.value?.length
-    ? services.value.map((s) => s.title?.es || '').filter(Boolean)
-    : ['Infraestructura', 'Urbanización', 'Proyectos', 'Renta de equipo'],
-)
+// Services bento: cells 1 and 4 of every group of four run wide, so a run of
+// four services tiles a 3-col grid exactly (2+1 / 1+2) with no empty cell.
+const isFeatureCell = (i: number) => i % 4 === 0 || i % 4 === 3
 
 useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDescription') })
 </script>
@@ -77,7 +74,7 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
             :to="localePath('/proyectos')"
             class="group inline-flex items-center gap-2 font-subtitle text-sm font-semibold uppercase tracking-wide text-ink hover:text-danger"
           >
-            {{ t('actions.viewAll') }}
+            {{ t('actions.viewProjects') }}
             <span class="transition-transform group-hover:translate-x-1">→</span>
           </NuxtLink>
         </Reveal>
@@ -85,38 +82,24 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
 
       <div v-if="projects?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <Reveal v-for="(p, i) in projects" :key="p._id" :delay="(i % 3) * 110" variant="wipe">
-          <ProjectCard :project="p" :index="i" />
+          <ProjectCard :project="p" />
         </Reveal>
       </div>
       <p v-else class="font-subtitle text-ink/50">{{ t('projects.empty') }}</p>
     </section>
 
-    <!-- Outlined marquee strip -->
-    <section class="overflow-hidden border-y border-ink/10 bg-surface py-6" aria-hidden="true">
-      <div class="flex w-max animate-marquee-slow items-center gap-10 whitespace-nowrap pr-10">
-        <template v-for="n in 2">
-          <template v-for="(w, i) in marqueeWords" :key="`${n}-${i}`">
-            <span class="text-stroke font-display text-6xl uppercase tracking-widest text-ink/60 sm:text-7xl">
-              {{ w }}
-            </span>
-            <span class="h-3 w-3 rotate-45 bg-accent" />
-          </template>
-        </template>
-      </div>
-    </section>
-
-    <!-- Services -->
+    <!-- Services: asymmetric bento, wide cells carry the dark blueprint texture -->
     <section class="bg-background">
       <div class="mx-auto max-w-6xl px-4 py-20 sm:py-28">
-        <SectionHeading
-          :eyebrow="t('home.servicesEyebrow')"
-          :title="t('home.ourServices')"
-          align="center"
-          class="mx-auto mb-14 max-w-2xl"
-        />
-        <div v-if="services?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Reveal v-for="(s, i) in services" :key="s._id" :delay="(i % 4) * 90">
-            <ServiceCard :service="s" :index="i" />
+        <SectionHeading :title="t('home.ourServices')" class="mb-14 max-w-2xl" />
+        <div v-if="services?.length" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal
+            v-for="(s, i) in services"
+            :key="s._id"
+            :delay="(i % 4) * 90"
+            :class="isFeatureCell(i) ? 'lg:col-span-2' : ''"
+          >
+            <ServiceCard :service="s" :feature="isFeatureCell(i)" />
           </Reveal>
         </div>
       </div>
@@ -124,12 +107,7 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
 
     <!-- Clients marquee -->
     <section v-if="marqueeClients.length" class="overflow-hidden bg-surface py-16 sm:py-20">
-      <SectionHeading
-        :eyebrow="t('home.clientsEyebrow')"
-        :title="t('home.ourClients')"
-        align="center"
-        class="mx-auto mb-10 max-w-2xl px-4"
-      />
+      <SectionHeading :title="t('home.ourClients')" align="center" class="mx-auto mb-10 max-w-2xl px-4" />
       <div class="relative flex w-full overflow-hidden">
         <div
           class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-surface to-transparent"
@@ -170,7 +148,7 @@ useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDe
       >
         <div>
           <Reveal>
-            <h2 class="max-w-2xl font-display text-5xl tracking-wide sm:text-6xl">
+            <h2 class="max-w-2xl font-display text-5xl sm:text-6xl">
               {{ t('home.cta.title') }}
             </h2>
           </Reveal>

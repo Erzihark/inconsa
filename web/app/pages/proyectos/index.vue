@@ -59,7 +59,7 @@ useSeoMeta({ title: () => t('projects.title'), description: () => t('projects.su
         name="grid"
         class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        <ProjectCard v-for="(p, i) in filtered" :key="p._id" :project="p" :index="i" />
+        <ProjectCard v-for="p in filtered" :key="p._id" :project="p" />
       </TransitionGroup>
       <p v-else class="py-16 text-center font-subtitle text-ink/50">{{ t('projects.empty') }}</p>
     </section>

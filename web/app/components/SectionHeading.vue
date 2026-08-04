@@ -22,7 +22,7 @@ withDefaults(
         />
       </p>
       <h2
-        class="reveal font-display text-4xl leading-none tracking-wide sm:text-5xl"
+        class="reveal font-display text-4xl leading-none sm:text-5xl"
         :class="light ? 'text-white' : 'text-ink'"
         style="transition-delay: 80ms"
       >

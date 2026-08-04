@@ -33,7 +33,7 @@ const ogImage = computed(() => {
 useSeoMeta({
   title: () => loc(category.value?.name) || t('leasing.title'),
   description: () => loc(category.value?.description) || t('leasing.subtitle'),
-  ogTitle: () => `${loc(category.value?.name)} — ${t('leasing.title')}`,
+  ogTitle: () => `${loc(category.value?.name)}, ${t('leasing.title')}`,
   ogImage: () => ogImage.value,
 })
 
@@ -75,7 +75,7 @@ useSchemaOrg([
         >
           <span>←</span> {{ t('leasing.backToLeasing') }}
         </NuxtLink>
-        <h1 class="rise font-display text-6xl leading-none tracking-wide sm:text-7xl" style="animation-delay: 80ms">
+        <h1 class="rise font-display text-6xl leading-none sm:text-7xl" style="animation-delay: 80ms">
           {{ loc(category.name) }}
         </h1>
         <p

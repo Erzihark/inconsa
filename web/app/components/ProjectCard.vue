@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import type { Project } from '~/types/content'
-const props = defineProps<{ project: Project; index?: number }>()
+const props = defineProps<{ project: Project }>()
 const loc = useLocalized()
 const { t } = useI18n()
 const localePath = useLocalePath()
 const to = computed(() => localePath(`/proyectos/${props.project.slug?.current}`))
-const num = computed(() =>
-  props.index !== undefined ? String(props.index + 1).padStart(2, '0') : null,
-)
 </script>
 
 <template>
@@ -29,18 +26,10 @@ const num = computed(() =>
       <div class="absolute left-4 top-4">
         <StatusBadge :status="project.status" />
       </div>
-      <!-- index number -->
-      <span
-        v-if="num"
-        class="text-stroke pointer-events-none absolute right-4 top-3 font-display text-5xl tracking-widest text-white/60"
-        aria-hidden="true"
-        >{{ num }}</span
-      >
-
       <!-- caption block over the image -->
       <div class="absolute inset-x-0 bottom-0 p-5 sm:p-6">
         <h3
-          class="font-display text-3xl leading-none tracking-wide text-white transition-transform duration-500 group-hover:-translate-y-1"
+          class="font-display text-3xl leading-none text-white transition-transform duration-500 group-hover:-translate-y-1"
         >
           {{ loc(project.title) }}
         </h3>
