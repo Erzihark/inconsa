@@ -35,7 +35,14 @@ const marqueeClients = computed(() => {
 // four services tiles a 3-col grid exactly (2+1 / 1+2) with no empty cell.
 const isFeatureCell = (i: number) => i % 4 === 0 || i % 4 === 3
 
-useSeoMeta({ title: () => t('meta.homeTitle'), description: () => t('meta.homeDescription') })
+// siteSettings.defaultSeo lets the client retitle the home page from the Studio
+// without a deploy; the i18n strings are the fallback.
+const loc = useLocalized()
+const { data: settings } = useSiteSettings()
+useSeoMeta({
+  title: () => loc(settings.value?.defaultSeo?.metaTitle) || t('meta.homeTitle'),
+  description: () => loc(settings.value?.defaultSeo?.metaDescription) || t('meta.homeDescription'),
+})
 </script>
 
 <template>

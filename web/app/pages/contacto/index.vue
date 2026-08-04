@@ -37,7 +37,7 @@ async function submit() {
 
 const contact = computed(() => settings.value?.contact)
 
-useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.subtitle') })
+useSeoMeta({ title: () => t('meta.contactTitle'), description: () => t('meta.contactDescription') })
 
 // CTAs link here with ?topic=&subject= — keep the clean path canonical.
 const localePath = useLocalePath()

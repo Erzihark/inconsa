@@ -4,7 +4,7 @@ const loc = useLocalized()
 const { data: settings } = useSiteSettings()
 const content = computed(() => loc(settings.value?.founderMessage))
 
-useSeoMeta({ title: () => t('footer.founder'), description: () => t('meta.homeDescription') })
+useSeoMeta({ title: () => t('meta.founderTitle'), description: () => t('meta.founderDescription') })
 </script>
 
 <template>

@@ -6,7 +6,7 @@ const { t } = useI18n()
 const { data: gallery } = useSanityData<GalleryImage[]>('gallery', GALLERY_QUERY)
 const figures = computed(() => (gallery.value ?? []).map((g) => g.image).filter(Boolean))
 
-useSeoMeta({ title: () => t('nav.gallery'), description: () => t('meta.homeDescription') })
+useSeoMeta({ title: () => t('meta.galleryTitle'), description: () => t('meta.galleryDescription') })
 </script>
 
 <template>

@@ -21,7 +21,7 @@ const filtered = computed(() => {
   return filter.value === 'all' ? list : list.filter((p) => p.status === filter.value)
 })
 
-useSeoMeta({ title: () => t('projects.title'), description: () => t('projects.subtitle') })
+useSeoMeta({ title: () => t('meta.projectsTitle'), description: () => t('meta.projectsDescription') })
 </script>
 
 <template>
