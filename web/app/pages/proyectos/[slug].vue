@@ -113,7 +113,7 @@ useSchemaOrg([
     <section v-if="description?.length" class="mx-auto max-w-3xl px-4 py-16">
       <SectionHeading :title="t('projects.aboutProject')" class="mb-6" />
       <div class="rich">
-        <SanityContent :blocks="description" />
+        <SanityContent :value="description" />
       </div>
     </section>
 
