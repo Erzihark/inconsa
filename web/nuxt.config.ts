@@ -14,8 +14,21 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        // Every page renders at least one image from the Sanity CDN. Opening the
+        // connection during HTML parse saves the DNS + TCP + TLS round trips
+        // (~0.4s on mobile) that would otherwise delay the LCP image.
+        { rel: 'preconnect', href: 'https://cdn.sanity.io', crossorigin: '' },
+      ],
     },
+  },
+
+  nitro: {
+    // Pre-compress the built JS/CSS/fonts. Vercel compresses at the edge, but
+    // this makes the artefacts correct on any host (and on `nuxt preview`),
+    // where they were otherwise served as ~450 kB of uncompressed JS + CSS.
+    compressPublicAssets: { gzip: true, brotli: true },
   },
 
   vite: {
@@ -103,9 +116,11 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
+      // Weight 500 is dropped: no `font-medium` utility is used anywhere, and
+      // each extra weight is another set of self-hosted woff2 subsets to ship.
       { name: 'Bebas Neue', provider: 'google', weights: [400] },
-      { name: 'Roboto', provider: 'google', weights: [400, 500, 700] },
-      { name: 'Montserrat', provider: 'google', weights: [400, 500, 600, 700] },
+      { name: 'Roboto', provider: 'google', weights: [400, 700] },
+      { name: 'Montserrat', provider: 'google', weights: [400, 600, 700] },
     ],
   },
 })

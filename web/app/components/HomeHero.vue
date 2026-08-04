@@ -18,6 +18,7 @@ const words = computed(() => t('home.heroTitle').split(' '))
         :source="image"
         alt=""
         loading="eager"
+        fetchpriority="high"
         :widths="[768, 1280, 1920]"
         sizes="100vw"
         img-class="kenburns absolute inset-0 h-full w-full object-cover opacity-45"
