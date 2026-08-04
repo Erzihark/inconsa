@@ -262,12 +262,18 @@ Measured with Lighthouse against `node .output/server/index.mjs` (mobile preset,
 6. **`will-change: auto` on `.in-view`** so revealed elements release their
    compositor layers instead of holding them for the whole session.
 
-**Sanity CORS** (2026-08-04): `https://www.inconsa.mx` is now allow-listed, without
+**Sanity CORS** (2026-08-04): both production hosts are now allow-listed without
 credentials, so client-side navigation works in production. Initial page loads never
-depended on it (SSR). Allowed origins are now `localhost:3000`, `localhost:3333` and
-`https://www.inconsa.mx`. The apex `https://inconsa.mx` is **not** allowed — fine while
-it 301s to `www` (the browser never fetches from the apex origin), but add it if the
-apex is ever served directly. Manage with `npx sanity cors list|add` from `studio/`.
+depended on it (SSR). Allowed origins: `http://localhost:3000`, `http://localhost:3333`,
+`https://www.inconsa.mx`, `https://inconsa.mx`.
+
+⚠️ **Still missing: the `*.vercel.app` preview origin** — the site has never been
+deployed, so no hostname exists yet. Add the exact one after the first deploy
+(`npx sanity cors add https://<name>.vercel.app --no-credentials` from `studio/`).
+Until then a preview deploy will render fine on first load and fail to fetch on any
+client-side navigation, which looks like a bug in the site but is not. Inspect the
+current list with `npx sanity cors list`. Keep credentials off: the site only reads
+public published content.
 
 TBT is noisy under simulated throttling (76–282 ms across identical runs of the
 same route); FCP/LCP are stable to ±30 ms. Judge changes on FCP/LCP, not TBT.

@@ -31,27 +31,32 @@ The Nuxt app lives in **`web/`** (this is a monorepo — `studio/` is the CMS).
 The browser refetches Sanity on client-side navigation, so the live origin must be
 allow-listed. Initial page loads are server-rendered and never depend on this.
 
-✅ **`https://www.inconsa.mx` is already allow-listed** (added 2026-08-04, credentials
-off). Current origins: `http://localhost:3000`, `http://localhost:3333`,
-`https://www.inconsa.mx`.
+✅ **Both production hosts are already allow-listed** (added 2026-08-04, credentials
+off). Current origins:
 
-Still worth adding, depending on the setup:
+| Origin | Purpose |
+|---|---|
+| `http://localhost:3000` | `npm run dev` |
+| `http://localhost:3333` | Sanity Studio |
+| `https://www.inconsa.mx` | Production (canonical) |
+| `https://inconsa.mx` | Apex, in case it ever serves directly instead of redirecting |
 
-- **`https://inconsa.mx`** — only needed if the apex serves the site directly. If it
-  301s to `www` (step 3), the browser never issues a Sanity request from the apex.
-- **Your `*.vercel.app` preview URL** — needed to click through a preview deploy;
-  client-side navigation will otherwise fail there while production is fine.
-
-Either from the CLI in `studio/`:
+⚠️ **One still to add, after step 1: your `*.vercel.app` preview hostname.** It cannot
+be added in advance because it does not exist until the first deploy. Without it a
+preview renders correctly on first load (that page is server-rendered) and then fails
+to fetch on the first internal link you click. That reads as a broken site but is only
+the missing origin, so add it before you spend time debugging a preview:
 
 ```bash
-npx sanity cors add https://inconsa.mx --no-credentials
+npx sanity cors add https://<your-preview>.vercel.app --no-credentials
 ```
 
-or at https://sanity.io/manage → project **inconsa** (`4sxos8s4`) → **API → CORS
-origins**. **Always leave "Allow credentials" unchecked** — the site only reads public
-published content, and enabling it would let that origin send tokens and cookies.
-Check what is currently allowed with `npx sanity cors list`.
+Run from `studio/`. Check the current list any time with `npx sanity cors list`, or
+manage it at https://sanity.io/manage → project **inconsa** (`4sxos8s4`) → **API → CORS
+origins**.
+
+**Always leave "Allow credentials" unchecked.** The site only ever reads public
+published content; enabling it would let that origin send tokens and cookies.
 
 ## 3. Point the domain at Vercel
 
