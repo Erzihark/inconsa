@@ -7,9 +7,9 @@ import { supportedLanguages } from '../languages'
  */
 export const localeString = defineType({
   name: 'localeString',
-  title: 'Localized string',
+  title: 'Texto localizado',
   type: 'object',
-  fieldsets: [{ name: 'translations', title: 'Translations', options: { collapsible: true } }],
+  fieldsets: [{ name: 'translations', title: 'Traducciones', options: { collapsible: true } }],
   fields: supportedLanguages.map((lang) => ({
     name: lang.id,
     title: lang.title,

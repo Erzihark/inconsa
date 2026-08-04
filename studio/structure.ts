@@ -6,26 +6,26 @@ import type { StructureResolver } from 'sanity/structure'
  */
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Content')
+    .title('Contenido')
     .items([
       S.listItem()
-        .title('Site settings')
+        .title('Configuración del sitio')
         .id('siteSettings')
         .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
       S.divider(),
-      S.documentTypeListItem('project').title('Projects'),
-      S.documentTypeListItem('client').title('Clients'),
-      S.documentTypeListItem('service').title('Services'),
-      S.documentTypeListItem('galleryImage').title('Gallery'),
+      S.documentTypeListItem('project').title('Proyectos'),
+      S.documentTypeListItem('client').title('Clientes'),
+      S.documentTypeListItem('service').title('Servicios'),
+      S.documentTypeListItem('galleryImage').title('Galería'),
       S.divider(),
       S.listItem()
-        .title('Leasing')
+        .title('Arrendamiento')
         .child(
           S.list()
-            .title('Leasing')
+            .title('Arrendamiento')
             .items([
-              S.documentTypeListItem('machineCategory').title('Machine categories'),
-              S.documentTypeListItem('machine').title('Machines'),
+              S.documentTypeListItem('machineCategory').title('Categorías de máquinas'),
+              S.documentTypeListItem('machine').title('Máquinas'),
             ]),
         ),
     ])

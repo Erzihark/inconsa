@@ -142,6 +142,13 @@ CV download wired in header/footer from `siteSettings.cv`.
 - 2026-07-08 (cont.) — Replaced @vueuse/motion with CSS+IO reveals (no hydration
   mismatch). Built Phase 4 leasing (dark/orange, distinct) + seeded 5 categories.
   Diagnosed & fixed the payload-hydration bug (useSanityData). Console clean everywhere.
+- 2026-08-04 — Localized Sanity Studio's admin UI to Spanish (`feat/studio-spanish-locale`):
+  added `@sanity/locale-es-es` plugin (`esESLocale()` in `sanity.config.ts`) and translated
+  all schema `title`/`description` strings + `structure.ts` menu labels to Spanish (field
+  *names* and select-list `value`s left unchanged — only human-facing labels). Sanity's
+  hosted login screen (Google/GitHub/E-mail picker) stays in English — it's served outside
+  the Studio bundle and isn't affected by this plugin. `tsc --noEmit` and `sanity build`
+  both clean.
 - 2026-07-14 — Design v2 polish pass (`feat/design-v2`): motion system v2 (directional
   blurred reveals, image wipes, diagonal cuts, outlined-text marquees, Ken Burns),
   fixed scroll-aware header (route-aware leasing accent), cinematic heroes, overlay
