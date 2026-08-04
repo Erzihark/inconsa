@@ -5,11 +5,29 @@ const { data: settings } = useSiteSettings()
 const form = reactive({ name: '', email: '', message: '', company: '' })
 const state = ref<'idle' | 'sending' | 'success' | 'error'>('idle')
 
+// Pre-fill the message from where the visitor came from. Client-only and after
+// hydration: the page is ISR-cached, so this must never end up in the HTML.
+const { resolve, message: prefillMessage } = useContactPrefill()
+const context = ref<{ topic: string; subject?: string }>()
+const draft = ref('')
+
+onMounted(() => {
+  if (form.message) return
+  const text = prefillMessage()
+  if (!text) return
+  context.value = resolve()
+  draft.value = text
+  form.message = text
+})
+
+// Once the visitor edits the draft it's their own message, so drop the hint.
+const prefilled = computed(() => !!draft.value && form.message === draft.value)
+
 async function submit() {
   if (state.value === 'sending') return
   state.value = 'sending'
   try {
-    await $fetch('/api/contact', { method: 'POST', body: { ...form } })
+    await $fetch('/api/contact', { method: 'POST', body: { ...form, context: context.value } })
     state.value = 'success'
     form.name = form.email = form.message = ''
   } catch {
@@ -20,6 +38,11 @@ async function submit() {
 const contact = computed(() => settings.value?.contact)
 
 useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.subtitle') })
+
+// CTAs link here with ?topic=&subject= — keep the clean path canonical.
+const localePath = useLocalePath()
+const site = useSiteConfig()
+useHead({ link: [{ rel: 'canonical', href: () => `${site.url}${localePath('/contacto')}` }] })
 </script>
 
 <template>
@@ -59,6 +82,12 @@ useSeoMeta({ title: () => t('contact.title'), description: () => t('contact.subt
               required
               class="w-full border border-ink/15 bg-white px-4 py-3 font-subtitle text-ink outline-none focus:border-ink"
             />
+            <span
+              v-if="prefilled"
+              class="mt-1.5 flex items-start gap-2 font-subtitle text-xs leading-relaxed text-ink/55"
+            >
+              <span class="mt-px text-accent" aria-hidden="true">▹</span>{{ t('contact.prefillNote') }}
+            </span>
           </label>
           <!-- honeypot -->
           <input v-model="form.company" type="text" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />

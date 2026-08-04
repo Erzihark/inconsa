@@ -85,7 +85,21 @@
     "success": "Thank you, your message was sent.",
     "error": "Something went wrong. Please try again.",
     "phone": "Phone",
-    "address": "Address"
+    "address": "Address",
+    "prefillNote": "We drafted this message based on the page you came from. Edit it however you like.",
+    "prefill": {
+      "machine": "Hi, I'm interested in renting {subject}. Could you send me availability and a quote?",
+      "machineCategory": "Hi, I'm interested in renting machinery from the {subject} category. Could you send me availability and a quote?",
+      "leasing": "Hi, I'm interested in your machinery leasing. Could you send me availability and rates?",
+      "project": "Hi, I saw your \"{subject}\" project and I'd like to talk about a similar job.",
+      "projects": "Hi, I went through your projects and I'd like to talk about a job I have in mind.",
+      "service": "Hi, I'm interested in your {subject} service. Could you send me more information and a quote?",
+      "services": "Hi, I'm interested in your services and I'd like to request a quote.",
+      "gallery": "Hi, I saw your project gallery and I'd like to talk about a job.",
+      "clients": "Hi, I'd like to know more about your experience with clients like me and request a quote.",
+      "about": "Hi, I came across Grupo INCONSA on your site and I'd like to talk about a project.",
+      "general": "Hi, I'd like to request a quote for my project."
+    }
   },
   "leasing": {
     "title": "Machinery leasing",

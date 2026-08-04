@@ -3,7 +3,7 @@ import type { Machine } from '~/types/content'
 defineProps<{ machine: Machine }>()
 const loc = useLocalized()
 const { t } = useI18n()
-const localePath = useLocalePath()
+const contactLink = useContactLink()
 </script>
 
 <template>
@@ -58,7 +58,7 @@ const localePath = useLocalePath()
         </span>
       </div>
 
-      <UiButton :to="localePath('/contacto')" variant="machine" class="mt-6 w-full">
+      <UiButton :to="contactLink('machine', loc(machine.name))" variant="machine" class="mt-6 w-full">
         {{ t('actions.requestQuote') }}
       </UiButton>
     </div>

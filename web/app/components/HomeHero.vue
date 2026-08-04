@@ -3,6 +3,7 @@ import type { SanityImage } from '~/types/content'
 defineProps<{ image?: SanityImage | null }>()
 const { t } = useI18n()
 const localePath = useLocalePath()
+const contactLink = useContactLink()
 
 // Word-level stagger for the headline; the last word gets the accent color.
 // Deterministic from the i18n string → identical SSR/client markup.
@@ -61,7 +62,7 @@ const words = computed(() => t('home.heroTitle').split(' '))
       <div class="rise mt-10 flex flex-wrap gap-4" style="animation-delay: 760ms">
         <UiButton :to="localePath('/proyectos')" arrow>{{ t('actions.viewProjects') }}</UiButton>
         <UiButton
-          :to="localePath('/contacto')"
+          :to="contactLink('general')"
           variant="outline"
           class="border-white text-white before:!bg-white hover:!text-ink"
         >

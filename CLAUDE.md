@@ -126,6 +126,22 @@ Detail pages must include the slug in the key (e.g. `project-${slug}`).
   `ph-*.jpg`; projects have covers+galleries, categories have images, 8 standalone
   gallery docs (`galleryimg-ph-*`).
 
+## Contact pre-fill (context-aware)
+
+CTAs link to `/contacto?topic=…&subject=…` via **`useContactLink()`** (e.g.
+`contactLink('machine', loc(machine.name))`). The contact page resolves it with
+**`useContactPrefill()`** and drops a ready-written message into the textarea. Topics:
+`machine|machineCategory|leasing|project|projects|service|services|gallery|clients|about|
+general`; a topic that needs a name but has none degrades (machine→leasing, project→
+projects). Context-less links (header nav) fall back to inferring the topic from the
+previous route (`history.state.back`, locale prefix stripped). Copy lives in i18n under
+`contact.prefill.*` + `contact.prefillNote`.
+Resolution runs **client-side in `onMounted`** so the ISR-cached HTML never contains a
+pre-filled message (and no hydration mismatch). The hint under the textarea disappears
+once the visitor edits the draft. The context also rides along to
+`server/api/contact.post.ts`, which puts the subject in the email subject line.
+`/contacto` keeps a clean canonical URL despite the query params.
+
 ## Phase 3 pages (all built)
 
 home `/`, `/proyectos` (+ status filter), `/proyectos/[slug]`, `/servicios`, `/clientes`,
@@ -163,6 +179,10 @@ CV download wired in header/footer from `siteSettings.cv`.
   capped the services-page zigzag, tightened Bebas display tracking, and added a
   skip link, a branded 404, form `aria-live`, and Phosphor social marks. Build
   green, 0 console errors, screenshots on all key pages.
+- 2026-08-04 — Context-aware contact pre-fill (see section above): `useContactLink` /
+  `useContactPrefill`, wired into every "Solicitar cotización" CTA (machine, category,
+  leasing, project, services, home) + history fallback for the header nav. Verified in
+  ES/EN with Playwright: build green, correct drafts, no hydration warnings.
 
 ## Design skills (taste-skill)
 

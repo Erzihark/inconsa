@@ -4,7 +4,7 @@ import { SERVICES_QUERY } from '~/utils/queries'
 
 const { t } = useI18n()
 const loc = useLocalized()
-const localePath = useLocalePath()
+const contactLink = useContactLink()
 const { data: services } = useSanityData<Service[]>('services', SERVICES_QUERY)
 
 const groupOrder = ['infrastructure', 'urbanization', 'projects', 'equipment']
@@ -83,7 +83,7 @@ useSeoMeta({
       </div>
 
       <div class="mt-16 flex justify-center">
-        <UiButton :to="localePath('/contacto')">{{ t('actions.requestQuote') }}</UiButton>
+        <UiButton :to="contactLink('services')">{{ t('actions.requestQuote') }}</UiButton>
       </div>
     </section>
   </div>

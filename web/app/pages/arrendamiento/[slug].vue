@@ -6,6 +6,7 @@ const route = useRoute()
 const { t } = useI18n()
 const loc = useLocalized()
 const localePath = useLocalePath()
+const contactLink = useContactLink()
 
 const slug = route.params.slug as string
 const { data: category } = await useSanityData<MachineCategory | null>(
@@ -104,7 +105,11 @@ useSchemaOrg([
       </div>
       <div v-else class="bg-steel-2 p-10 text-center ring-1 ring-white/5">
         <p class="font-subtitle text-white/60">{{ t('leasing.noMachines') }}</p>
-        <UiButton :to="localePath('/contacto')" variant="machine" class="mt-6">
+        <UiButton
+          :to="contactLink('machineCategory', loc(category.name))"
+          variant="machine"
+          class="mt-6"
+        >
           {{ t('actions.requestQuote') }}
         </UiButton>
       </div>
